@@ -1,11 +1,11 @@
-# fastify-env
+# env-schema
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/fastify/env-schema.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.com/fastify/env-schema.svg?branch=master)](https://travis-ci.com/fastify/env-schame)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-Utility to check environment variables using JSON schema, Ajv and
-dotenv.
+Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv) and
+[dotenv](http://npm.im/dotenv).
 
 ## Install
 
@@ -32,7 +32,7 @@ const schema = {
 const config = envSchema({
   schema: schema,
   data: data // optional, default: process.env
-  dotenv: true // load .env if it's there
+  dotenv: true // load .env if it's there, default: false
 })
 
 console.log(config)
