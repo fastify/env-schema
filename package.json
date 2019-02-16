@@ -16,6 +16,7 @@
     "schema",
     "json",
     "dotenv",
+    "preprocess",
     "validate",
     "extract"
   ],
