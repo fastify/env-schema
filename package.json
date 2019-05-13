@@ -33,6 +33,12 @@
   },
   "dependencies": {
     "ajv": "^6.9.1",
-    "dotenv": "^6.2.0"
+    "dotenv": "^7.0.0"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "dotenv",
+      "tap"
+    ]
   }
 }
