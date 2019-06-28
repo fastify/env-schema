@@ -1,26 +1,10 @@
 'use strict'
 
 const t = require('tap')
-const envSchema = require('../index')
 const S = require('fluent-schema')
+const makeTest = require('./make-test')
 
 process.env.VALUE_FROM_ENV = 'pippo'
-
-function makeTest (t, options, isOk, confExpected, errorMessage) {
-  t.plan(1)
-  options = Object.assign({ confKey: 'config' }, options)
-
-  try {
-    const conf = envSchema(options)
-    t.strictSame(conf, confExpected)
-  } catch (err) {
-    if (isOk) {
-      t.fail(err)
-      return
-    }
-    t.strictSame(err.message, errorMessage)
-  }
-}
 
 const tests = [
   {
