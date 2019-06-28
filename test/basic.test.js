@@ -2,6 +2,7 @@
 
 const t = require('tap')
 const envSchema = require('../index')
+const S = require('fluent-schema')
 
 process.env.VALUE_FROM_ENV = 'pippo'
 
@@ -244,6 +245,17 @@ const tests = [
     data: [],
     isOk: false,
     errorMessage: 'should NOT have fewer than 1 items,should be object,should match exactly one schema in oneOf'
+  },
+  {
+    name: 'simple object - fluent-schema',
+    schema: S.object().prop('PORT', S.string()),
+    data: {
+      PORT: '44'
+    },
+    isOk: true,
+    confExpected: {
+      PORT: '44'
+    }
   }
 ]
 
