@@ -21,7 +21,13 @@ const optsSchema = {
 }
 const optsSchemaValidator = ajv.compile(optsSchema)
 
-function loadAndValidateEnvironment (opts) {
+function loadAndValidateEnvironment (_opts) {
+  const opts = Object.assign({}, _opts)
+
+  if (opts.schema && opts.schema[Symbol.for('fluent-schema-object')]) {
+    opts.schema = opts.schema.valueOf()
+  }
+
   const isOptionValid = optsSchemaValidator(opts)
   if (!isOptionValid) {
     const error = new Error(optsSchemaValidator.errors.map(e => e.message))

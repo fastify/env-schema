@@ -39,8 +39,24 @@ console.log(config)
 // output: { PORT: 3000 }
 ```
 
-**NB:** internally this plugin force to not have additional properties, so the `additionalProperties` flag is forced to be `false`
+It is possible to also use [fluent-schema](http://npm.im/fluent-schema):
 
+```js
+const envSchema = require('env-schema')
+const S = require('fluent-schema')
+
+const config = envSchema({
+  schema: S.object().prop('port', S.string().default('3000').required()),
+  data: data // optional, default: process.env
+  dotenv: true // load .env if it's there, default: false
+})
+
+console.log(config)
+// output: { PORT: 3000 }
+```
+
+**NB:** internally this plugin force to not have additional properties,
+so the `additionalProperties` flag is forced to be `false`
 
 ## Acknowledgements
 

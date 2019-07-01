@@ -1,10 +1,10 @@
 {
   "name": "env-schema",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Validate your env variable using Ajv and dotenv",
   "main": "index.js",
   "scripts": {
-    "test": "standard | snazzy && tap test/*.js"
+    "test": "standard | snazzy && tap test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/fastify/env-schema#readme",
   "devDependencies": {
+    "fluent-schema": "^0.7.3",
     "pre-commit": "^1.2.2",
     "snazzy": "^8.0.0",
     "standard": "^12.0.1",
