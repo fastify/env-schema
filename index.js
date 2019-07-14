@@ -5,7 +5,7 @@ const ajv = new Ajv({ removeAdditional: true, useDefaults: true, coerceTypes: tr
 
 const optsSchema = {
   type: 'object',
-  required: [ 'schema' ],
+  required: ['schema'],
   properties: {
     schema: { type: 'object', additionalProperties: true },
     data: {
