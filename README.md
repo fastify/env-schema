@@ -58,6 +58,44 @@ console.log(config)
 **NB:** internally this plugin force to not have additional properties,
 so the `additionalProperties` flag is forced to be `false`
 
+### Custom keywords
+This library supports the following Ajv custom keywords:
+
+#### `seperator`
+Type: `string`
+
+Applies to type(s): `string`
+
+When present, the value provided will be split based by this value.
+
+Example:
+```js
+const envSchema = require('env-schema')
+
+const schema = {
+  type: 'object',
+  required: [ 'ALLOWED_HOSTS' ],
+  properties: {
+    ALLOWED_HOSTS: {
+      type: 'string',
+      separator: ','
+    }
+  }
+}
+
+const data = {
+  ALLOWED_HOSTS: '127.0.0.1,0.0.0.0'
+}
+
+const config = envSchema({
+  schema: schema,
+  data: data, // optional, default: process.env
+  dotenv: true // load .env if it's there, default: false
+}) 
+
+// config.data => ['127.0.0.1', '0.0.0.0']
+```
+
 ## Acknowledgements
 
 Kindly sponsored by [Mia Platform](https://www.mia-platform.eu/) and
