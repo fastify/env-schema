@@ -288,6 +288,22 @@ const tests = [
     confExpected: {
       ALLOWED_HOSTS: []
     }
+  },
+  {
+    name: 'simple object - KO - with separator',
+    schema: {
+      type: 'object',
+      required: ['ALLOWED_HOSTS'],
+      properties: {
+        ALLOWED_HOSTS: {
+          type: 'string',
+          separator: ','
+        }
+      }
+    },
+    data: {},
+    isOk: false,
+    errorMessage: 'should have required property \'ALLOWED_HOSTS\''
   }
 ]
 
