@@ -61,10 +61,10 @@ so the `additionalProperties` flag is forced to be `false`
 ### Custom keywords
 This library supports the following Ajv custom keywords:
 
-#### `seperator`
+#### `separator`
 Type: `string`
 
-Applies to type(s): `string`
+Applies to type: `string`
 
 When present, the value provided will be split based by this value.
 
