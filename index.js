@@ -3,6 +3,20 @@
 const Ajv = require('ajv')
 const ajv = new Ajv({ removeAdditional: true, useDefaults: true, coerceTypes: true })
 
+ajv.addKeyword('separator', {
+  type: 'string',
+  metaSchema: {
+    type: 'string',
+    description: 'value separator'
+  },
+  modifying: true,
+  valid: true,
+  errors: false,
+  compile: (schema) => (data, dataPath, parentData, parentDataProperty) => {
+    parentData[parentDataProperty] = data === '' ? [] : data.split(schema)
+  }
+})
+
 const optsSchema = {
   type: 'object',
   required: ['schema'],

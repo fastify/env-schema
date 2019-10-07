@@ -228,6 +228,82 @@ const tests = [
     data: [],
     isOk: false,
     errorMessage: 'should NOT have fewer than 1 items,should be object,should match exactly one schema in oneOf'
+  },
+  {
+    name: 'simple object - ok - with separator',
+    schema: {
+      type: 'object',
+      required: ['ALLOWED_HOSTS'],
+      properties: {
+        ALLOWED_HOSTS: {
+          type: 'string',
+          separator: ','
+        }
+      }
+    },
+    data: {
+      ALLOWED_HOSTS: '127.0.0.1,0.0.0.0'
+    },
+    isOk: true,
+    confExpected: {
+      ALLOWED_HOSTS: ['127.0.0.1', '0.0.0.0']
+    }
+  },
+  {
+    name: 'simple object - ok - with separator - only one value',
+    schema: {
+      type: 'object',
+      required: ['ALLOWED_HOSTS'],
+      properties: {
+        ALLOWED_HOSTS: {
+          type: 'string',
+          separator: ','
+        }
+      }
+    },
+    data: {
+      ALLOWED_HOSTS: '127.0.0.1'
+    },
+    isOk: true,
+    confExpected: {
+      ALLOWED_HOSTS: ['127.0.0.1']
+    }
+  },
+  {
+    name: 'simple object - ok - with separator - no values',
+    schema: {
+      type: 'object',
+      required: ['ALLOWED_HOSTS'],
+      properties: {
+        ALLOWED_HOSTS: {
+          type: 'string',
+          separator: ','
+        }
+      }
+    },
+    data: {
+      ALLOWED_HOSTS: ''
+    },
+    isOk: true,
+    confExpected: {
+      ALLOWED_HOSTS: []
+    }
+  },
+  {
+    name: 'simple object - KO - with separator',
+    schema: {
+      type: 'object',
+      required: ['ALLOWED_HOSTS'],
+      properties: {
+        ALLOWED_HOSTS: {
+          type: 'string',
+          separator: ','
+        }
+      }
+    },
+    data: {},
+    isOk: false,
+    errorMessage: 'should have required property \'ALLOWED_HOSTS\''
   }
 ]
 
