@@ -1,4 +1,5 @@
-import envSchema from "../..";
+import { expectError, expectType } from "tsd";
+import envSchema, { EnvSchemaData, EnvSchemaOpt } from "../..";
 
 const schema = {
   type: "object",
@@ -10,30 +11,45 @@ const schema = {
     },
   },
 };
+const data = {
+  foo: "bar",
+};
 
-envSchema();
-envSchema({
+expectType<EnvSchemaData>(envSchema());
+
+const emptyOpt: EnvSchemaOpt = {};
+expectType<EnvSchemaOpt>(emptyOpt);
+
+const optWithSchema: EnvSchemaOpt = {
   schema,
-});
-envSchema({
-  schema,
-  data: {
-    foo: "bar",
-  },
-});
-envSchema({
-  // @ts-expect-error
+};
+expectType<EnvSchemaOpt>(optWithSchema);
+
+const optWithData: EnvSchemaOpt = {
+  data,
+};
+expectType<EnvSchemaOpt>(optWithData);
+
+expectError<EnvSchemaOpt>({
   data: [], // min 1 item
 });
-envSchema({
+
+const optWithArrayData: EnvSchemaOpt = {
   data: [{}],
-});
-envSchema({
+};
+expectType<EnvSchemaOpt>(optWithArrayData);
+
+const optWithMultipleItemArrayData: EnvSchemaOpt = {
   data: [{}, {}],
-});
-envSchema({
+};
+expectType<EnvSchemaOpt>(optWithMultipleItemArrayData);
+
+const optWithDotEnvBoolean: EnvSchemaOpt = {
   dotenv: true,
-});
-envSchema({
-  dotenv: {},
-});
+};
+expectType<EnvSchemaOpt>(optWithDotEnvBoolean);
+
+const optWithDotEnvOpt: EnvSchemaOpt = {
+  dotenv: true,
+};
+expectType<EnvSchemaOpt>(optWithDotEnvOpt);
