@@ -17,7 +17,19 @@ envSchema({
 });
 envSchema({
   schema,
-  data: {},
+  data: {
+    foo: "bar",
+  },
+});
+envSchema({
+  // @ts-expect-error
+  data: [], // min 1 item
+});
+envSchema({
+  data: [{}],
+});
+envSchema({
+  data: [{}, {}],
 });
 envSchema({
   dotenv: true,
