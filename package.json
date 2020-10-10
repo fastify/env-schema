@@ -4,7 +4,8 @@
   "description": "Validate your env variable using Ajv and dotenv",
   "main": "index.js",
   "scripts": {
-    "test": "standard | snazzy && tap test/*.test.js"
+    "test": "standard | snazzy && tap test/*.test.js && npm run typescript",
+    "typescript": "tsd"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,8 @@
     "pre-commit": "^1.2.2",
     "snazzy": "^8.0.0",
     "standard": "^14.0.2",
-    "tap": "^12.7.0"
+    "tap": "^12.7.0",
+    "tsd": "^0.13.1"
   },
   "dependencies": {
     "ajv": "^6.10.2",
@@ -41,5 +43,8 @@
       "dotenv",
       "tap"
     ]
+  },
+  "tsd": {
+    "directory": "test/types"
   }
 }
