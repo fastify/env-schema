@@ -3,7 +3,8 @@
     "index.js"
   ],
   "include": [
-    "test/**/*.js"
+    "test/**/*.js",
+    "test/**/*.mjs"
   ],
   "compilerOptions": {
     /* Basic Options */
