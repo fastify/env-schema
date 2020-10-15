@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "required": ["schema"],
+  "properties": {
+    "schema": { "type": "object", "additionalProperties": true },
+    "data": {
+      "oneOf": [
+        { "type": "array", "items": { "type": "object" }, "minItems": 1 },
+        { "type": "object" }
+      ],
+      "default": {}
+    },
+    "env": { "type": "boolean", "default": true },
+    "dotenv": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "object" }
+      ],
+      "default": false
+    }
+  }
+}

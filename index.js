@@ -31,23 +31,7 @@ ajv.addKeyword('separator', {
   }
 })
 
-const optsSchema = {
-  type: 'object',
-  required: ['schema'],
-  properties: {
-    schema: { type: 'object', additionalProperties: true },
-    data: {
-      oneOf: [
-        { type: 'array', items: { type: 'object' }, minItems: 1 },
-        { type: 'object' }
-      ],
-      default: {}
-    },
-    env: { type: 'boolean', default: true },
-    dotenv: { type: ['boolean', 'object'], default: false }
-  }
-}
-const optsSchemaValidator = ajv.compile(optsSchema)
+const optsSchemaValidator = ajv.compile(require('./options.schema.json'))
 
 /** @type {import('./index')} */
 function loadAndValidateEnvironment (_opts) {

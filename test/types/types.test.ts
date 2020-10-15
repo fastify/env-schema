@@ -1,5 +1,6 @@
 import { expectError, expectType, expectAssignable, expectNotAssignable } from "tsd";
 import envSchema, { PlainObject, EnvSchemaOpt } from "../..";
+import { OptionsSchema } from "./options.schema"
 
 const schema = {
   type: "object",
@@ -55,3 +56,6 @@ expectError<EnvSchemaOpt>({
   schema,
   data: 'foo'
 });
+
+const assignableOpt: EnvSchemaOpt = { schema };
+expectAssignable<OptionsSchema>(assignableOpt);
