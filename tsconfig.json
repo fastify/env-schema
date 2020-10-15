@@ -1,0 +1,20 @@
+{
+  "files": [
+    "index.js"
+  ],
+  "include": [
+    "test/**/*.js"
+  ],
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "ES2016",
+    "module": "commonjs",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+  }
+}
