@@ -1,3 +1,4 @@
+import { expectError, expectType, expectAssignable, expectNotAssignable } from "tsd";
 import envSchema, { PlainObject, EnvSchemaOpt } from "../..";
 
 const schema = {
@@ -16,39 +17,41 @@ const data = {
 
 expectType<PlainObject>(envSchema());
 
-const emptyOpt: EnvSchemaOpt = {};
-expectType<EnvSchemaOpt>(emptyOpt);
+expectAssignable<EnvSchemaOpt>({ schema });
+expectAssignable<EnvSchemaOpt>({ schema, data });
 
-const optWithSchema: EnvSchemaOpt = {
+expectAssignable<EnvSchemaOpt>({
   schema,
-};
-expectType<EnvSchemaOpt>(optWithSchema);
-
-const optWithData: EnvSchemaOpt = {
-  data,
-};
-expectType<EnvSchemaOpt>(optWithData);
-
-expectError<EnvSchemaOpt>({
-  data: [], // min 1 item
+  data: [{}],
 });
 
-const optWithArrayData: EnvSchemaOpt = {
-  data: [{}],
-};
-expectType<EnvSchemaOpt>(optWithArrayData);
-
-const optWithMultipleItemArrayData: EnvSchemaOpt = {
+expectAssignable<EnvSchemaOpt>({
+  schema,
   data: [{}, {}],
-};
-expectType<EnvSchemaOpt>(optWithMultipleItemArrayData);
+});
 
-const optWithDotEnvBoolean: EnvSchemaOpt = {
+expectAssignable<EnvSchemaOpt>({
+  schema,
   dotenv: true,
-};
-expectType<EnvSchemaOpt>(optWithDotEnvBoolean);
+});
 
-const optWithDotEnvOpt: EnvSchemaOpt = {
-  dotenv: true,
-};
-expectType<EnvSchemaOpt>(optWithDotEnvOpt);
+expectAssignable<EnvSchemaOpt>({
+  schema,
+  dotenv: { path: './foo/bar.env' },
+});
+
+expectAssignable<EnvSchemaOpt>({
+  schema,
+  env: false,
+});
+
+expectNotAssignable<EnvSchemaOpt>({
+  schema,
+  dotenv: 'foobar',
+});
+
+expectError<EnvSchemaOpt>({});
+expectError<EnvSchemaOpt>({
+  schema,
+  data: 'foo'
+});
