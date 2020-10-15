@@ -5,6 +5,17 @@
 const Ajv = require('ajv')
 const ajv = new Ajv({ removeAdditional: true, useDefaults: true, coerceTypes: true })
 
+class EnvSchemaError extends Error {
+  /** @param {import('ajv').ErrorObject[]} errors */
+  constructor (errors) {
+    const message = errors.map(e => e.message).join('\n')
+
+    super(message)
+
+    this.errors = errors
+  }
+}
+
 ajv.addKeyword('separator', {
   type: 'string',
   metaSchema: {
@@ -14,8 +25,9 @@ ajv.addKeyword('separator', {
   modifying: true,
   valid: true,
   errors: false,
-  compile: (schema) => (data, dataPath, parentData, parentDataProperty) => {
+  compile: (schema) => (data, _dataPath, parentData, parentDataProperty) => {
     parentData[parentDataProperty] = data === '' ? [] : data.split(schema)
+    return true
   }
 })
 
@@ -37,8 +49,9 @@ const optsSchema = {
 }
 const optsSchemaValidator = ajv.compile(optsSchema)
 
+/** @type {import('./index')} */
 function loadAndValidateEnvironment (_opts) {
-  const opts = Object.assign({}, _opts)
+  const opts = { ..._opts }
 
   if (opts.schema && opts.schema[Symbol.for('fluent-schema-object')]) {
     opts.schema = opts.schema.valueOf()
@@ -46,21 +59,20 @@ function loadAndValidateEnvironment (_opts) {
 
   const isOptionValid = optsSchemaValidator(opts)
   if (!isOptionValid) {
-    const error = new Error(optsSchemaValidator.errors.map(e => e.message))
-    error.errors = optsSchemaValidator.errors
-    throw error
+    throw new EnvSchemaError(optsSchemaValidator.errors)
   }
 
-  const schema = opts.schema
-  schema.additionalProperties = false
-
-  let data = opts.data
-  if (!Array.isArray(opts.data)) {
-    data = [data]
+  const schema = {
+    ...opts.schema,
+    additionalProperties: false
   }
 
-  if (opts.dotenv) {
-    require('dotenv').config(Object.assign({}, opts.dotenv))
+  const data = Array.isArray(opts.data) ? opts.data : [opts.data]
+
+  if (opts.dotenv === true) {
+    require('dotenv').config()
+  } else if (opts.dotenv) {
+    require('dotenv').config({ ...opts.dotenv })
   }
 
   if (opts.env) {
@@ -72,9 +84,7 @@ function loadAndValidateEnvironment (_opts) {
 
   const valid = ajv.validate(schema, merge)
   if (!valid) {
-    const error = new Error(ajv.errors.map(e => e.message).join('\n'))
-    error.errors = ajv.errors
-    throw error
+    throw new EnvSchemaError(ajv.errors)
   }
 
   return merge

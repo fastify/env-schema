@@ -1,16 +1,16 @@
-export type EnvSchemaData = {
-  [key: string]: unknown;
-};
+export = envSchema;
 
-export type EnvSchemaOpt = {
-  schema?: object;
-  data?: [EnvSchemaData, ...EnvSchemaData[]] | EnvSchemaData;
-  env?: boolean;
-  dotenv?: boolean | object;
-};
+declare function envSchema(
+  _opts?: envSchema.EnvSchemaOpt
+): envSchema.PlainObject;
 
-declare function loadAndValidateEnvironment(
-  _opts?: EnvSchemaOpt
-): EnvSchemaData;
+declare namespace envSchema {
+  type PlainObject = { [key: string]: any };
 
-export default loadAndValidateEnvironment;
+  type EnvSchemaOpt = {
+    schema: object;
+    data?: PlainObject[] | PlainObject
+    env?: boolean;
+    dotenv?: boolean | PlainObject;
+  };
+}

@@ -227,7 +227,7 @@ const tests = [
     },
     data: [],
     isOk: false,
-    errorMessage: 'should NOT have fewer than 1 items,should be object,should match exactly one schema in oneOf'
+    errorMessage: 'should NOT have fewer than 1 items\nshould be object\nshould match exactly one schema in oneOf'
   },
   {
     name: 'simple object - ok - with separator',

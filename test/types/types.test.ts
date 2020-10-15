@@ -1,5 +1,4 @@
-import { expectError, expectType } from "tsd";
-import envSchema, { EnvSchemaData, EnvSchemaOpt } from "../..";
+import envSchema, { PlainObject, EnvSchemaOpt } from "../..";
 
 const schema = {
   type: "object",
@@ -15,7 +14,7 @@ const data = {
   foo: "bar",
 };
 
-expectType<EnvSchemaData>(envSchema());
+expectType<PlainObject>(envSchema());
 
 const emptyOpt: EnvSchemaOpt = {};
 expectType<EnvSchemaOpt>(emptyOpt);
