@@ -14,3 +14,4 @@ declare function loadAndValidateEnvironment(
 ): EnvSchemaData;
 
 export default loadAndValidateEnvironment;
+export { loadAndValidateEnvironment as envSchema };
