@@ -304,6 +304,24 @@ const tests = [
     data: {},
     isOk: false,
     errorMessage: 'should have required property \'ALLOWED_HOSTS\''
+  },
+  {
+    name: 'simple object - KO - multiple required properties',
+    schema: {
+      type: 'object',
+      required: ['A', 'B', 'C'],
+      properties: {
+        A: { type: 'string' },
+        B: { type: 'string' },
+        C: { type: 'string' },
+        D: { type: 'string' }
+      }
+    },
+    data: {},
+    isOk: false,
+    errorMessage: `should have required property 'A'
+should have required property 'B'
+should have required property 'C'`
   }
 ]
 
