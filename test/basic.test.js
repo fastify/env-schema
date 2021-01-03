@@ -2,6 +2,7 @@
 
 const t = require('tap')
 const makeTest = require('./make-test')
+const { join } = require('path')
 
 process.env.VALUE_FROM_ENV = 'pippo'
 
@@ -194,7 +195,7 @@ const tests = [
     },
     data: undefined,
     isOk: true,
-    dotenv: { path: `${__dirname}/.env` },
+    dotenv: { path: join(__dirname, '.env') },
     confExpected: {
       VALUE_FROM_DOTENV: 'look ma'
     }
