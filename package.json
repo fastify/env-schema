@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "ajv": "^6.10.2",
-    "dotenv": "^7.0.0"
+    "dotenv": "^8.2.0"
   },
   "greenkeeper": {
     "ignore": [
