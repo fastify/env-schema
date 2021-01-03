@@ -35,7 +35,7 @@
     "tsd": "^0.14.0"
   },
   "dependencies": {
-    "ajv": "^6.10.2",
+    "ajv": "^7.0.3",
     "dotenv": "^8.2.0"
   },
   "greenkeeper": {
