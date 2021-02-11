@@ -38,12 +38,6 @@
     "ajv": "^6.10.2",
     "dotenv": "^8.2.0"
   },
-  "greenkeeper": {
-    "ignore": [
-      "dotenv",
-      "tap"
-    ]
-  },
   "tsd": {
     "directory": "test/types"
   }
