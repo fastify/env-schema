@@ -1,8 +1,10 @@
 # env-schema
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/fastify/env-schema.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.com/fastify/env-schema.svg?branch=master)](https://travis-ci.com/fastify/env-schame)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![CI workflow](https://github.com/fastify/env-schema/workflows/CI%20workflow/badge.svg)
+[![NPM version](https://img.shields.io/npm/v/env-schema.svg?style=flat)](https://www.npmjs.com/package/env-schema)
+[![Known Vulnerabilities](https://snyk.io/test/github/fastify/env-schema/badge.svg)](https://snyk.io/test/github/fastify/env-schema)
+[![Coverage Status](https://coveralls.io/repos/github/fastify/env-schema/badge.svg?branch=master)](https://coveralls.io/github/fastify/env-schema?branch=master)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
 
 Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv) and
 [dotenv](http://npm.im/dotenv).

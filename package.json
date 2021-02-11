@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard | snazzy && tap test/*.test.js && npm run typescript",
+    "test:ci": "standard | snazzy && tap test/*.test.js --coverage-report=lcovonly && npm run typescript",
     "typescript": "tsd"
   },
   "repository": {
@@ -37,12 +38,6 @@
   "dependencies": {
     "ajv": "^6.10.2",
     "dotenv": "^8.2.0"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "dotenv",
-      "tap"
-    ]
   },
   "tsd": {
     "directory": "test/types"
