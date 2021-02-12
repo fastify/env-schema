@@ -49,8 +49,9 @@ const S = require('fluent-schema')
 
 const config = envSchema({
   schema: S.object().prop('port', S.string().default('3000').required()),
-  data: data // optional, default: process.env
-  dotenv: true // load .env if it's there, default: false
+  data: data, // optional, default: process.env
+  dotenv: true, // load .env if it's there, default: false
+  expandEnv: true, // use dotenv-expand, default: false
 })
 
 console.log(config)
