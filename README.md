@@ -57,8 +57,7 @@ console.log(config)
 // output: { PORT: 3000 }
 ```
 
-**NB:** internally this plugin force to not have additional properties,
-so the `additionalProperties` flag is forced to be `false`
+**NB:** support for additional properties in the schema is disabled for this plugin, with the `additionalProperties` flag set to `false` internally.
 
 ### Custom keywords
 This library supports the following Ajv custom keywords:
