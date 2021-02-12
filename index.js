@@ -30,7 +30,8 @@ const optsSchema = {
       default: {}
     },
     env: { type: 'boolean', default: true },
-    dotenv: { type: ['boolean', 'object'], default: false }
+    dotenv: { type: ['boolean', 'object'], default: false },
+    expandEnv: { type: ['boolean'], default: false }
   }
 }
 const optsSchemaValidator = ajv.compile(optsSchema)
@@ -62,6 +63,9 @@ function loadAndValidateEnvironment (_opts) {
   }
 
   if (opts.env) {
+    if (opts.expandEnv) {
+      require('dotenv-expand')({ parsed: process.env })
+    }
     data.unshift(process.env)
   }
 
