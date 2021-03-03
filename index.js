@@ -1,9 +1,6 @@
 'use strict'
 
-const Ajv = require('ajv')
-const ajv = new Ajv({ allErrors: true, removeAdditional: true, useDefaults: true, coerceTypes: true })
-
-ajv.addKeyword('separator', {
+const separator = {
   type: 'string',
   metaSchema: {
     type: 'string',
@@ -13,9 +10,12 @@ ajv.addKeyword('separator', {
   valid: true,
   errors: false,
   compile: (schema) => (data, dataPath, parentData, parentDataProperty) => {
-    parentData[parentDataProperty] = data === '' ? [] : data.split(schema)
+    console.log({ data, dataPath, parentData, parentDataProperty })
+    if (parentData && parentDataProperty) {
+      parentData[parentDataProperty] = data === '' ? [] : data.split(schema)
+    }
   }
-})
+}
 
 const optsSchema = {
   type: 'object',
@@ -34,6 +34,19 @@ const optsSchema = {
     expandEnv: { type: ['boolean'], default: false }
   }
 }
+
+const Ajv = require('ajv').default
+const ajv = new Ajv({
+  allErrors: true,
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: true,
+  allowUnionTypes: true,
+  keywords: {
+    separator
+  }
+})
+
 const optsSchemaValidator = ajv.compile(optsSchema)
 
 function loadAndValidateEnvironment (_opts) {
