@@ -10,9 +10,14 @@ const separator = {
   valid: true,
   errors: false,
   compile: (schema) => (data, dataPath, parentData, parentDataProperty) => {
-    console.log({ data, dataPath, parentData, parentDataProperty })
     if (parentData && parentDataProperty) {
       parentData[parentDataProperty] = data === '' ? [] : data.split(schema)
+    } else {
+      const {
+        parentData: pData,
+        parentDataProperty: pDataProperty
+      } = dataPath
+      pData[pDataProperty] = data === '' ? [] : data.split(schema)
     }
   }
 }

@@ -11,7 +11,6 @@ function makeTest (t, options, isOk, confExpected, errorMessage) {
     t.strictSame(conf, confExpected)
   } catch (err) {
     if (isOk) {
-      console.log(err)
       t.fail(err)
       return
     }
