@@ -1,5 +1,7 @@
 'use strict'
 
+const Ajv = require('ajv').default
+
 const separator = {
   type: 'string',
   metaSchema: {
@@ -10,6 +12,8 @@ const separator = {
   valid: true,
   errors: false,
   compile: (schema) => (data, dataPath, parentData, parentDataProperty) => {
+    // In some cases parentData and parentDataProperty will be undefined.
+    // We need to fall back to the dataPath object to provide those values.
     if (parentData && parentDataProperty) {
       parentData[parentDataProperty] = data === '' ? [] : data.split(schema)
     } else {
@@ -40,7 +44,6 @@ const optsSchema = {
   }
 }
 
-const Ajv = require('ajv').default
 const ajv = new Ajv({
   allErrors: true,
   removeAdditional: true,
