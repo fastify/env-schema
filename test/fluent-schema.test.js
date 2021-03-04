@@ -9,10 +9,10 @@ if (parseInt(process.versions.node.split('.')[0]) <= 8) {
 }
 
 function run () {
-  const S = require('fluent-schema')
+  const S = require('fluent-json-schema')
   const makeTest = require('./make-test')
 
-  t.test('simple object - fluent-schema', t => {
+  t.test('simple object - fluent-json-schema', t => {
     const options = {
       schema: S.object().prop('PORT', S.string()),
       data: {
