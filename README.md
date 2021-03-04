@@ -41,11 +41,11 @@ console.log(config)
 // output: { PORT: 3000 }
 ```
 
-It is possible to also use [fluent-schema](http://npm.im/fluent-schema):
+It is possible to also use [fluent-json-schema](http://npm.im/fluent-json-schema):
 
 ```js
 const envSchema = require('env-schema')
-const S = require('fluent-schema')
+const S = require('fluent-json-schema')
 
 const config = envSchema({
   schema: S.object().prop('port', S.string().default('3000').required()),
