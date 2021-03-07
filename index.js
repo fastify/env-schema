@@ -3,6 +3,7 @@
 const Ajv = require('ajv').default
 
 const separator = {
+  keyword: 'separator',
   type: 'string',
   metaSchema: {
     type: 'string',
@@ -50,9 +51,7 @@ const ajv = new Ajv({
   useDefaults: true,
   coerceTypes: true,
   allowUnionTypes: true,
-  keywords: {
-    separator
-  }
+  keywords: [separator]
 })
 
 const optsSchemaValidator = ajv.compile(optsSchema)
