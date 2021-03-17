@@ -1,6 +1,6 @@
 # env-schema
 
-![CI workflow](https://github.com/fastify/env-schema/workflows/CI%20workflow/badge.svg)
+![CI](https://github.com/fastify/env-schema/workflows/CI/badge.svg)
 [![NPM version](https://img.shields.io/npm/v/env-schema.svg?style=flat)](https://www.npmjs.com/package/env-schema)
 [![Known Vulnerabilities](https://snyk.io/test/github/fastify/env-schema/badge.svg)](https://snyk.io/test/github/fastify/env-schema)
 [![Coverage Status](https://coveralls.io/repos/github/fastify/env-schema/badge.svg?branch=master)](https://coveralls.io/github/fastify/env-schema?branch=master)
