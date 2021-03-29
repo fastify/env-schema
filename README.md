@@ -33,8 +33,9 @@ const schema = {
 
 const config = envSchema({
   schema: schema,
-  data: data // optional, default: process.env
-  dotenv: true // load .env if it's there, default: false
+  data: data, // optional, default: process.env
+  dotenv: true, // load .env if it's there, default: false
+  expandEnv: true // use dotenv-expand, default: false
 })
 
 console.log(config)
@@ -51,7 +52,7 @@ const config = envSchema({
   schema: S.object().prop('port', S.string().default('3000').required()),
   data: data, // optional, default: process.env
   dotenv: true, // load .env if it's there, default: false
-  expandEnv: true, // use dotenv-expand, default: false
+  expandEnv: true // use dotenv-expand, default: false
 })
 
 console.log(config)
@@ -92,7 +93,8 @@ const data = {
 const config = envSchema({
   schema: schema,
   data: data, // optional, default: process.env
-  dotenv: true // load .env if it's there, default: false
+  dotenv: true, // load .env if it's there, default: false,
+  expandEnv: true // use dotenv-expand, default: false
 }) 
 
 // config.data => ['127.0.0.1', '0.0.0.0']

@@ -7,6 +7,7 @@ export type EnvSchemaOpt = {
   data?: [EnvSchemaData, ...EnvSchemaData[]] | EnvSchemaData;
   env?: boolean;
   dotenv?: boolean | object;
+  expandEnv?: boolean;
 };
 
 declare function loadAndValidateEnvironment(
