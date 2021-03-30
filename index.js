@@ -54,6 +54,9 @@ const ajv = new Ajv({
   keywords: [separator]
 })
 
+// Add support for JSON Schema formats to AJV
+require('ajv-formats')(ajv)
+
 const optsSchemaValidator = ajv.compile(optsSchema)
 
 function loadAndValidateEnvironment (_opts) {

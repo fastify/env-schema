@@ -51,6 +51,25 @@ const tests = [
     }
   },
   {
+    name: 'simple object - ok - format keyword',
+    schema: {
+      type: 'object',
+      properties: {
+        EMAIL: {
+          type: 'string',
+          format: 'email'
+        }
+      }
+    },
+    data: {
+      EMAIL: 'example@example.com'
+    },
+    isOk: true,
+    confExpected: {
+      EMAIL: 'example@example.com'
+    }
+  },
+  {
     name: 'simple object - ok - remove additional properties',
     schema: {
       type: 'object',
@@ -305,6 +324,24 @@ const tests = [
     data: {},
     isOk: false,
     errorMessage: 'must have required property \'ALLOWED_HOSTS\''
+  },
+  {
+    name: 'simple object - KO - format keyword',
+    schema: {
+      type: 'object',
+      properties: {
+        EMAIL: {
+          type: 'string',
+          format: 'email'
+        }
+      }
+    },
+    data: {
+      EMAIL: 'example'
+    },
+    isOk: false,
+    // eslint-disable-next-line no-useless-escape
+    errorMessage: 'must match format \"email\"'
   },
   {
     name: 'simple object - KO - multiple required properties',
