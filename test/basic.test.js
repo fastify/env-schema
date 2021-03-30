@@ -213,7 +213,7 @@ const tests = [
     },
     data: { },
     isOk: false,
-    errorMessage: 'should have required property \'PORT\''
+    errorMessage: 'must have required property \'PORT\''
   },
   {
     name: 'simple object - invalid data',
@@ -228,7 +228,7 @@ const tests = [
     },
     data: [],
     isOk: false,
-    errorMessage: 'should NOT have fewer than 1 items,should be object,should match exactly one schema in oneOf'
+    errorMessage: 'must NOT have fewer than 1 items,must be object,must match exactly one schema in oneOf'
   },
   {
     name: 'simple object - ok - with separator',
@@ -304,7 +304,7 @@ const tests = [
     },
     data: {},
     isOk: false,
-    errorMessage: 'should have required property \'ALLOWED_HOSTS\''
+    errorMessage: 'must have required property \'ALLOWED_HOSTS\''
   },
   {
     name: 'simple object - KO - multiple required properties',
@@ -320,9 +320,9 @@ const tests = [
     },
     data: {},
     isOk: false,
-    errorMessage: `should have required property 'A'
-should have required property 'B'
-should have required property 'C'`
+    errorMessage: `must have required property 'A'
+must have required property 'B'
+must have required property 'C'`
   }
 ]
 
