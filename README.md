@@ -98,6 +98,52 @@ const config = envSchema({
 // config.data => ['127.0.0.1', '0.0.0.0']
 ```
 
+#### `castBoolean`
+Type: `string`
+
+Applies to type: `string`
+
+When present, the provided schema value will cast to [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean).
+
+Value of castBoolean could be `normal` or `strict`.
+
+* In **strict** mode value must be one of `'1'`, `'yes'` or `'true'` for `true` result, otherwise will be **false**.
+* In **normal** mode must be one of `''`, `'0'`, `'no'` or `'false'` for `false` result, otherwise will be **true**.
+
+**Note**: All value check case insensitively, so `Yes` is same as `yes`.
+
+Example:
+```js
+const envSchema = require('env-schema')
+
+const schema = {
+  type: 'object',
+  required: [ 'IS_PRODUCTION' ],
+  properties: {
+    IS_PRODUCTION: {
+      castBoolean: 'normal', // # `strict` or `normal`
+      type: 'string'
+    },
+    IS_REALLY_TRUE: {
+      castBoolean: 'strict', // # `strict` or `normal`
+      type: 'string'
+    }
+  }
+}
+
+const data = {
+  IS_PRODUCTION: 'iAgree',
+  IS_REALLY_TRUE: 'iAgree',
+}
+
+const config = envSchema({
+  schema: schema,
+  data: data
+}) 
+
+console.log(config) // { IS_PRODUCTION: true, IS_REALLY_TRUE: false }
+```
+
 ## Acknowledgements
 
 Kindly sponsored by [Mia Platform](https://www.mia-platform.eu/) and

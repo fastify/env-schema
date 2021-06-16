@@ -2,6 +2,37 @@
 
 const Ajv = require('ajv')
 
+const castBoolean = {
+  keyword: 'castBoolean',
+  type: 'string',
+  schemaType: 'string',
+  metaSchema: {
+    type: 'string',
+    enum: ['normal', 'strict'],
+    description: 'Cast to boolean in strict or normal mode'
+  },
+  modifying: true,
+  valid: true,
+  errors: false,
+  compile: (schema) => (data, dataPath, parentData, parentDataProperty) => {
+    let result = false
+    if (schema === 'strict') {
+      result = data === '1' || /^true$/i.test(data) || /^yes$/i.test(data)
+    } else {
+      result = data !== '0' && !/^false$/i.test(data) && !/^no$/i.test(data) && data !== ''
+    }
+    if (parentData && parentDataProperty) {
+      parentData[parentDataProperty] = result
+    } else {
+      const {
+        parentData: pData,
+        parentDataProperty: pDataProperty
+      } = dataPath
+      pData[pDataProperty] = result
+    }
+  }
+}
+
 const separator = {
   keyword: 'separator',
   type: 'string',
@@ -51,7 +82,7 @@ const ajv = new Ajv({
   useDefaults: true,
   coerceTypes: true,
   allowUnionTypes: true,
-  keywords: [separator]
+  keywords: [separator, castBoolean]
 })
 
 const optsSchemaValidator = ajv.compile(optsSchema)
