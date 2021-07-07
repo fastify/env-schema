@@ -41,11 +41,12 @@ const optsSchema = {
     },
     env: { type: 'boolean', default: true },
     dotenv: { type: ['boolean', 'object'], default: false },
-    expandEnv: { type: ['boolean'], default: false }
+    expandEnv: { type: ['boolean'], default: false },
+    ajv: { type: 'object' }
   }
 }
 
-const ajv = new Ajv({
+const sharedAjvInstance = new Ajv({
   allErrors: true,
   removeAdditional: true,
   useDefaults: true,
@@ -54,7 +55,7 @@ const ajv = new Ajv({
   keywords: [separator]
 })
 
-const optsSchemaValidator = ajv.compile(optsSchema)
+const optsSchemaValidator = sharedAjvInstance.compile(optsSchema)
 
 function loadAndValidateEnvironment (_opts) {
   const opts = Object.assign({}, _opts)
@@ -91,6 +92,8 @@ function loadAndValidateEnvironment (_opts) {
 
   const merge = {}
   data.forEach(d => Object.assign(merge, d))
+
+  const ajv = opts.ajv == null ? sharedAjvInstance : opts.ajv
 
   const valid = ajv.validate(schema, merge)
   if (!valid) {
