@@ -33,8 +33,42 @@ const schema = {
 
 const config = envSchema({
   schema: schema,
-  data: data // optional, default: process.env
+  data: data, // optional, default: process.env
   dotenv: true // load .env if it is there, default: false
+})
+
+console.log(config)
+// output: { PORT: 3000 }
+```
+
+Optionally, the user can supply their own ajv instance:
+
+```js
+const envSchema = require('env-schema')
+const Ajv = require('ajv')
+
+const schema = {
+  type: 'object',
+  required: [ 'PORT' ],
+  properties: {
+    PORT: {
+      type: 'number',
+      default: 3000
+    }
+  }
+}
+
+const config = envSchema({
+  schema: schema,
+  data: data,
+  dotenv: true,
+  ajv: new Ajv({
+    allErrors: true,
+    removeAdditional: true,
+    useDefaults: true,
+    coerceTypes: true,
+    allowUnionTypes: true
+  })
 })
 
 console.log(config)
