@@ -1,3 +1,5 @@
+import Ajv from "ajv";
+
 export type EnvSchemaData = {
   [key: string]: unknown;
 };
@@ -7,6 +9,7 @@ export type EnvSchemaOpt = {
   data?: [EnvSchemaData, ...EnvSchemaData[]] | EnvSchemaData;
   env?: boolean;
   dotenv?: boolean | object;
+  ajv?: Ajv;
 };
 
 declare function loadAndValidateEnvironment(
