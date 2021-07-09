@@ -255,27 +255,25 @@ tests.forEach(function (testConf) {
   })
 })
 
-const noCoercionTest = [
-  {
-    name: 'simple object - not ok - should NOT coerce value',
-    schema: {
-      type: 'object',
-      properties: {
-        PORT: {
-          type: 'integer'
-        }
+const noCoercionTest = {
+  name: 'simple object - not ok - should NOT coerce value',
+  schema: {
+    type: 'object',
+    properties: {
+      PORT: {
+        type: 'integer'
       }
-    },
-    data: {
-      PORT: '44'
-    },
-    isOk: false,
-    errorMessage: 'must be integer',
-    confExpected: {
-      PORT: 44
     }
+  },
+  data: {
+    PORT: '44'
+  },
+  isOk: false,
+  errorMessage: 'must be integer',
+  confExpected: {
+    PORT: 44
   }
-]
+}
 
 const strictValidator = new Ajv({
   allErrors: true,
@@ -283,9 +281,9 @@ const strictValidator = new Ajv({
   useDefaults: true,
   coerceTypes: false,
   allowUnionTypes: true
-})
+});
 
-noCoercionTest.forEach(function (testConf) {
+[noCoercionTest].forEach(function (testConf) {
   t.test(testConf.name, t => {
     const options = {
       schema: testConf.schema,
