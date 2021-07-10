@@ -42,7 +42,7 @@ const optsSchema = {
     env: { type: 'boolean', default: true },
     dotenv: { type: ['boolean', 'object'], default: false },
     expandEnv: { type: ['boolean'], default: false },
-    ajv: { type: 'object' }
+    ajv: { type: 'object', additionalProperties: true }
   }
 }
 
