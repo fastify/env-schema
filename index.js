@@ -108,3 +108,4 @@ function loadAndValidateEnvironment (_opts) {
 module.exports = loadAndValidateEnvironment
 module.exports.default = loadAndValidateEnvironment
 module.exports.envSchema = loadAndValidateEnvironment
+module.exports.envSchema.keywords = { separator }

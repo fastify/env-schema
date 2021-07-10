@@ -132,6 +132,40 @@ const config = envSchema({
 // config.data => ['127.0.0.1', '0.0.0.0']
 ```
 
+The ajv keyword definition objects can be accessed through the property `keywords` on the `envSchema` function:
+
+```js
+const envSchema = require('env-schema')
+const Ajv = require('ajv')
+
+const schema = {
+  type: 'object',
+  properties: {
+    names: {
+      type: 'string',
+      separator: ','
+    }
+  }
+}
+
+const config = envSchema({
+  schema: schema,
+  data: data,
+  dotenv: true,
+  ajv: new Ajv({
+    allErrors: true,
+    removeAdditional: true,
+    useDefaults: true,
+    coerceTypes: true,
+    allowUnionTypes: true,
+    keywords: [envSchema.keywords.separator]
+  })
+})
+
+console.log(config)
+// output: { PORT: 3000 }
+```
+
 ## Acknowledgements
 
 Kindly sponsored by [Mia Platform](https://www.mia-platform.eu/) and
