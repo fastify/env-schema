@@ -1,5 +1,6 @@
 import { expectError, expectType } from "tsd";
 import envSchema, { EnvSchemaData, EnvSchemaOpt, envSchema as envSchemaNamed, default as envSchemaDefault } from "../..";
+import Ajv, { KeywordDefinition } from 'ajv'
 
 const schema = {
   type: "object",
@@ -55,3 +56,9 @@ const optWithDotEnvOpt: EnvSchemaOpt = {
   dotenv: true,
 };
 expectType<EnvSchemaOpt>(optWithDotEnvOpt);
+
+const optWithAjvInstance: EnvSchemaOpt = {
+  ajv: new Ajv()
+};
+expectType<EnvSchemaOpt>(optWithAjvInstance)
+expectType<KeywordDefinition>(envSchema.keywords.separator)
