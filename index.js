@@ -66,7 +66,7 @@ function loadAndValidateEnvironment (_opts) {
 
   const isOptionValid = optsSchemaValidator(opts)
   if (!isOptionValid) {
-    const error = new Error(optsSchemaValidator.errors.map(e => e.message))
+    const error = new Error(sharedAjvInstance.errorsText(optsSchemaValidator.errors, { dataVar: 'opts' }))
     error.errors = optsSchemaValidator.errors
     throw error
   }
@@ -97,7 +97,7 @@ function loadAndValidateEnvironment (_opts) {
 
   const valid = ajv.validate(schema, merge)
   if (!valid) {
-    const error = new Error(ajv.errors.map(e => e.message).join('\n'))
+    const error = new Error(ajv.errorsText(ajv.errors, { dataVar: 'env' }))
     error.errors = ajv.errors
     throw error
   }

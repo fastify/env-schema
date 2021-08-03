@@ -213,7 +213,7 @@ const tests = [
     },
     data: { },
     isOk: false,
-    errorMessage: 'must have required property \'PORT\''
+    errorMessage: 'env must have required property \'PORT\''
   },
   {
     name: 'simple object - invalid data',
@@ -228,7 +228,7 @@ const tests = [
     },
     data: [],
     isOk: false,
-    errorMessage: 'must NOT have fewer than 1 items,must be object,must match exactly one schema in oneOf'
+    errorMessage: 'opts/data must NOT have fewer than 1 items, opts/data must be object, opts/data must match exactly one schema in oneOf'
   },
   {
     name: 'simple object - ok - with separator',
@@ -304,7 +304,7 @@ const tests = [
     },
     data: {},
     isOk: false,
-    errorMessage: 'must have required property \'ALLOWED_HOSTS\''
+    errorMessage: 'env must have required property \'ALLOWED_HOSTS\''
   },
   {
     name: 'simple object - KO - multiple required properties',
@@ -320,9 +320,7 @@ const tests = [
     },
     data: {},
     isOk: false,
-    errorMessage: `must have required property 'A'
-must have required property 'B'
-must have required property 'C'`
+    errorMessage: 'env must have required property \'A\', env must have required property \'B\', env must have required property \'C\''
   }
 ]
 
