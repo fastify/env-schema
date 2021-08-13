@@ -13,7 +13,7 @@ export type EnvSchemaOpt = {
 };
 
 declare const loadAndValidateEnvironment: {
-  (_opts?: EnvSchemaOpt): EnvSchemaData;
+  <T = EnvSchemaData>(_opts?: EnvSchemaOpt): T;
   keywords: {
     separator: KeywordDefinition;
   }
