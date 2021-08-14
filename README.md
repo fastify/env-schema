@@ -166,6 +166,41 @@ console.log(config)
 // output: { PORT: 3000 }
 ```
 
+### TypeScript
+
+You can specify the type of your `config`:
+
+```ts
+import envSchema from 'env-schema';
+
+interface Env {
+  PORT: string
+}
+
+const schema = {
+  type: 'object',
+  required: [ 'PORT' ],
+  properties: {
+    PORT: {
+      type: 'number',
+      default: 3000
+    }
+  }
+};
+
+const config = envSchema<Env>({
+  schema,
+})
+```
+
+If no type is specified the `config` will have the `EnvSchemaData` type.
+
+```ts
+export type EnvSchemaData = {
+  [key: string]: unknown;
+};
+```
+
 ## Acknowledgements
 
 Kindly sponsored by [Mia Platform](https://www.mia-platform.eu/) and

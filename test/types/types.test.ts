@@ -62,3 +62,12 @@ const optWithAjvInstance: EnvSchemaOpt = {
 };
 expectType<EnvSchemaOpt>(optWithAjvInstance)
 expectType<KeywordDefinition>(envSchema.keywords.separator)
+
+const envSchemaDefaultsToEnvSchemaData = envSchema({ schema: schema });
+expectType<EnvSchemaData>(envSchemaDefaultsToEnvSchemaData)
+
+interface EnvData {
+  PORT: string
+}
+const envSchemaAllowsToSpecifyType = envSchema<EnvData>({ schema });
+expectType<EnvData>(envSchemaAllowsToSpecifyType)
