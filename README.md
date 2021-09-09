@@ -35,11 +35,17 @@ const config = envSchema({
   schema: schema,
   data: data, // optional, default: process.env
   dotenv: true // load .env if it is there, default: false
+  // or you can pass DotenvConfigOptions
+  // dotenv: {
+  //   path: '/custom/path/to/.env'
+  // }
 })
 
 console.log(config)
 // output: { PORT: 3000 }
 ```
+
+see [DotenvConfigOptions](https://github.com/motdotla/dotenv#options)
 
 Optionally, the user can supply their own ajv instance:
 
