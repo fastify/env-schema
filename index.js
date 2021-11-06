@@ -1,6 +1,7 @@
 'use strict'
 
 const Ajv = require('ajv')
+const addFormats = require('ajv-formats')
 
 const separator = {
   keyword: 'separator',
@@ -54,6 +55,7 @@ const sharedAjvInstance = new Ajv({
   allowUnionTypes: true,
   keywords: [separator]
 })
+addFormats(sharedAjvInstance)
 
 const optsSchemaValidator = sharedAjvInstance.compile(optsSchema)
 

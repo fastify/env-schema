@@ -321,6 +321,23 @@ const tests = [
     data: {},
     isOk: false,
     errorMessage: 'env must have required property \'A\', env must have required property \'B\', env must have required property \'C\''
+  },
+  {
+    name: 'schema within format',
+    schema: {
+      type: 'object',
+      required: ['DB_URI'],
+      properties: {
+        DB_URI: { type: 'string', format: 'uri' }
+      }
+    },
+    data: {
+      DB_URI: 'mongodb://localhost/foo'
+    },
+    isOk: true,
+    confExpected: {
+      DB_URI: 'mongodb://localhost/foo'
+    }
   }
 ]
 
