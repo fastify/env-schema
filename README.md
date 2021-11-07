@@ -47,6 +47,8 @@ console.log(config)
 
 see [DotenvConfigOptions](https://github.com/motdotla/dotenv#options)
 
+### Custom ajv instance
+
 Optionally, the user can supply their own ajv instance:
 
 ```js
@@ -80,6 +82,27 @@ const config = envSchema({
 console.log(config)
 // output: { PORT: 3000 }
 ```
+
+It is possible to enhance the default ajv instance providing the `customOptions` function parameter.
+This example shows how to use the `format` keyword in your schemas.
+
+```js
+const config = envSchema({
+  schema: schema,
+  data: data,
+  dotenv: true,
+  ajv: {
+    customOptions (ajvInstance) {
+      require('ajv-formats')(ajvInstance)
+      return ajvInstance
+    }
+  }
+})
+```
+
+Note that it is mandatory returning the ajv instance.
+
+### Fluent-Schema API
 
 It is also possible to use [fluent-json-schema](http://npm.im/fluent-json-schema):
 
