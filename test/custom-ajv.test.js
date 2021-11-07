@@ -296,3 +296,51 @@ const strictValidator = new Ajv({
     makeTest(t, options, testConf.isOk, testConf.confExpected, testConf.errorMessage)
   })
 })
+
+t.test('ajv enhancement', t => {
+  t.plan(2)
+  const testCase = {
+    schema: {
+      type: 'object',
+      required: ['MONGODB_URL'],
+      properties: {
+        MONGODB_URL: {
+          type: 'string',
+          format: 'uri'
+        }
+      }
+    },
+    data: [{ PORT: 3333 }, { MONGODB_URL: 'mongodb://localhost/pippo' }],
+    isOk: true,
+    confExpected: {
+      MONGODB_URL: 'mongodb://localhost/pippo'
+    }
+  }
+
+  t.test('return', t => {
+    const options = {
+      schema: testCase.schema,
+      data: testCase.data,
+      ajv: {
+        customOptions (ajvInstance) {
+          require('ajv-formats')(ajvInstance)
+          return ajvInstance
+        }
+      }
+    }
+    makeTest(t, options, testCase.isOk, testCase.confExpected)
+  })
+
+  t.test('no return', t => {
+    const options = {
+      schema: testCase.schema,
+      data: testCase.data,
+      ajv: {
+        customOptions (ajvInstance) {
+          // do nothing
+        }
+      }
+    }
+    makeTest(t, options, false, undefined, 'customOptions function must return an instance of Ajv')
+  })
+})

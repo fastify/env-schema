@@ -46,14 +46,7 @@ const optsSchema = {
   }
 }
 
-const sharedAjvInstance = new Ajv({
-  allErrors: true,
-  removeAdditional: true,
-  useDefaults: true,
-  coerceTypes: true,
-  allowUnionTypes: true,
-  keywords: [separator]
-})
+const sharedAjvInstance = getDefaultInstance()
 
 const optsSchemaValidator = sharedAjvInstance.compile(optsSchema)
 
@@ -93,7 +86,7 @@ function loadAndValidateEnvironment (_opts) {
   const merge = {}
   data.forEach(d => Object.assign(merge, d))
 
-  const ajv = opts.ajv == null ? sharedAjvInstance : opts.ajv
+  const ajv = chooseAjvInstance(sharedAjvInstance, opts.ajv)
 
   const valid = ajv.validate(schema, merge)
   if (!valid) {
@@ -103,6 +96,30 @@ function loadAndValidateEnvironment (_opts) {
   }
 
   return merge
+}
+
+function chooseAjvInstance (defaultInstance, ajvOpts) {
+  if (!ajvOpts) {
+    return defaultInstance
+  } else if (typeof ajvOpts === 'object' && typeof ajvOpts.customOptions === 'function') {
+    const ajv = ajvOpts.customOptions(getDefaultInstance())
+    if (!(ajv instanceof Ajv)) {
+      throw new Error('customOptions function must return an instance of Ajv')
+    }
+    return ajv
+  }
+  return ajvOpts
+}
+
+function getDefaultInstance () {
+  return new Ajv({
+    allErrors: true,
+    removeAdditional: true,
+    useDefaults: true,
+    coerceTypes: true,
+    allowUnionTypes: true,
+    keywords: [separator]
+  })
 }
 
 module.exports = loadAndValidateEnvironment
