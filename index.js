@@ -103,7 +103,7 @@ function chooseAjvInstance (defaultInstance, ajvOpts) {
     return defaultInstance
   } else if (typeof ajvOpts === 'object' && typeof ajvOpts.customOptions === 'function') {
     const ajv = ajvOpts.customOptions(getDefaultInstance())
-    if (!ajv) {
+    if (!(ajv instanceof Ajv)) {
       throw new Error('customOptions function must return an instance of Ajv')
     }
     return ajv
