@@ -11,7 +11,9 @@ export type EnvSchemaOpt = {
   env?: boolean;
   dotenv?: boolean | DotenvConfigOptions;
   expandEnv?: boolean
-  ajv?: Ajv;
+  ajv?: Ajv | {
+    customOptions(ajvInstance: Ajv): Ajv;
+  };
 };
 
 declare const loadAndValidateEnvironment: {
