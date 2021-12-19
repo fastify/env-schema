@@ -68,6 +68,22 @@ const optWithAjvInstance: EnvSchemaOpt = {
 expectType<EnvSchemaOpt>(optWithAjvInstance)
 expectType<KeywordDefinition>(envSchema.keywords.separator)
 
+
+const optWithAjvCustomOptions: EnvSchemaOpt = {
+    ajv: {
+        customOptions(ajvInstance: Ajv): Ajv {
+            return new Ajv();
+        }
+    }
+};
+expectType<EnvSchemaOpt>(optWithAjvCustomOptions)
+expectError<EnvSchemaOpt>({
+    ajv: {
+        customOptions(ajvInstance: Ajv) {
+        }
+    }
+});
+
 const envSchemaDefaultsToEnvSchemaData = envSchema({ schema: schema });
 expectType<EnvSchemaData>(envSchemaDefaultsToEnvSchemaData)
 
