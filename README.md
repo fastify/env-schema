@@ -192,7 +192,7 @@ const config = envSchema({
 })
 
 console.log(config)
-// output: { PORT: 3000 }
+// output: { names: ['foo', 'bar'] }
 ```
 
 ### TypeScript
