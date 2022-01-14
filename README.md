@@ -203,7 +203,7 @@ You can specify the type of your `config`:
 import envSchema from 'env-schema';
 
 interface Env {
-  PORT: string
+  PORT: number;
 }
 
 const schema = {
