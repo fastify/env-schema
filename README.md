@@ -111,7 +111,7 @@ const envSchema = require('env-schema')
 const S = require('fluent-json-schema')
 
 const config = envSchema({
-  schema: S.object().prop('port', S.number().default('3000').required()),
+  schema: S.object().prop('port', S.number().default(3000).required()),
   data: data, // optional, default: process.env
   dotenv: true, // load .env if it is there, default: false
   expandEnv: true, // use dotenv-expand, default: false
