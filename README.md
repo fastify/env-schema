@@ -215,7 +215,7 @@ const schema = {
       default: 3000
     }
   }
-};
+}
 
 const config = envSchema<Env>({
   schema,
@@ -227,7 +227,7 @@ If no type is specified the `config` will have the `EnvSchemaData` type.
 ```ts
 export type EnvSchemaData = {
   [key: string]: unknown;
-};
+}
 ```
 
 ## Acknowledgements
