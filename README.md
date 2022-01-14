@@ -25,7 +25,7 @@ const schema = {
   required: [ 'PORT' ],
   properties: {
     PORT: {
-      type: 'string',
+      type: 'number',
       default: 3000
     }
   }
@@ -111,7 +111,7 @@ const envSchema = require('env-schema')
 const S = require('fluent-json-schema')
 
 const config = envSchema({
-  schema: S.object().prop('port', S.string().default('3000').required()),
+  schema: S.object().prop('port', S.number().default(3000).required()),
   data: data, // optional, default: process.env
   dotenv: true, // load .env if it is there, default: false
   expandEnv: true, // use dotenv-expand, default: false
@@ -192,7 +192,7 @@ const config = envSchema({
 })
 
 console.log(config)
-// output: { PORT: 3000 }
+// output: { names: ['foo', 'bar'] }
 ```
 
 ### TypeScript
@@ -203,7 +203,7 @@ You can specify the type of your `config`:
 import envSchema from 'env-schema';
 
 interface Env {
-  PORT: string
+  PORT: number;
 }
 
 const schema = {
@@ -215,7 +215,7 @@ const schema = {
       default: 3000
     }
   }
-};
+}
 
 const config = envSchema<Env>({
   schema,
@@ -227,7 +227,7 @@ If no type is specified the `config` will have the `EnvSchemaData` type.
 ```ts
 export type EnvSchemaData = {
   [key: string]: unknown;
-};
+}
 ```
 
 ## Acknowledgements
