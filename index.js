@@ -118,6 +118,7 @@ function getDefaultInstance () {
     useDefaults: true,
     coerceTypes: true,
     allowUnionTypes: true,
+    addUsedSchema: false,
     keywords: [separator]
   })
 }
