@@ -1,9 +1,9 @@
 'use strict'
 
-const t = require('tap')
+const { test } = require('tap')
 const envSchema = require('../index')
 
-t.test('no globals', t => {
+test('no globals', t => {
   t.plan(2)
 
   const options = {
