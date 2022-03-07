@@ -33,7 +33,7 @@
     "pre-commit": "^1.2.2",
     "snazzy": "^9.0.0",
     "standard": "^16.0.0",
-    "tap": "^15.0.2",
+    "tap": "^16.0.0",
     "tsd": "^0.19.0"
   },
   "dependencies": {
