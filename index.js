@@ -78,7 +78,7 @@ function loadAndValidateEnvironment (_opts) {
 
   if (opts.env) {
     if (opts.expandEnv) {
-      require('dotenv-expand')({ parsed: process.env })
+      require('dotenv-expand').expand({ parsed: process.env })
     }
     data.unshift(process.env)
   }
