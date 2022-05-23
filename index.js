@@ -12,18 +12,8 @@ const separator = {
   modifying: true,
   valid: true,
   errors: false,
-  compile: (schema) => (data, dataPath, parentData, parentDataProperty) => {
-    // In some cases parentData and parentDataProperty will be undefined.
-    // We need to fall back to the dataPath object to provide those values.
-    if (parentData && parentDataProperty) {
-      parentData[parentDataProperty] = data === '' ? [] : data.split(schema)
-    } else {
-      const {
-        parentData: pData,
-        parentDataProperty: pDataProperty
-      } = dataPath
-      pData[pDataProperty] = data === '' ? [] : data.split(schema)
-    }
+  compile: (schema) => (data, { parentData: pData, parentDataProperty: pDataProperty }) => {
+    pData[pDataProperty] = data === '' ? [] : data.split(schema)
   }
 }
 
