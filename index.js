@@ -66,6 +66,7 @@ function loadAndValidateEnvironment (_opts) {
     require('dotenv').config(Object.assign({}, opts.dotenv))
   }
 
+  /* istanbul ignore else */
   if (opts.env) {
     if (opts.expandEnv) {
       require('dotenv-expand').expand({ parsed: process.env })

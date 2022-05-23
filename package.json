@@ -4,8 +4,8 @@
   "description": "Validate your env variable using Ajv and dotenv",
   "main": "index.js",
   "scripts": {
-    "test": "standard | snazzy && tap test/*.test.js --no-check-coverage && npm run typescript",
-    "test:ci": "standard | snazzy && tap test/*.test.js --no-check-coverage --coverage-report=lcovonly && npm run typescript",
+    "test": "standard | snazzy && tap test/*.test.js && npm run typescript",
+    "test:ci": "standard | snazzy && tap test/*.test.js --coverage-report=lcovonly && npm run typescript",
     "typescript": "tsd"
   },
   "repository": {
