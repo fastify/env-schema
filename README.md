@@ -10,7 +10,7 @@ Utility to check environment variables using [JSON schema](https://json-schema.o
 ## Install
 
 ```
-npm install --save env-schema
+npm i env-schema
 ```
 
 ## Usage
