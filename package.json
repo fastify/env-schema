@@ -3,6 +3,7 @@
   "version": "5.0.0",
   "description": "Validate your env variable using Ajv and dotenv",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "standard | snazzy && tap test/*.test.js && npm run typescript",
     "test:ci": "standard | snazzy && tap test/*.test.js --coverage-report=lcovonly && npm run typescript",
