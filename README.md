@@ -1,6 +1,6 @@
 # env-schema
 
-![CI](https://github.com/fastify/env-schema/workflows/CI/badge.svg)
+[![CI](https://github.com/fastify/env-schema/workflows/CI/badge.svg)](https://github.com/fastify/env-schema/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/env-schema.svg?style=flat)](https://www.npmjs.com/package/env-schema)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
 

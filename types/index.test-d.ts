@@ -1,5 +1,5 @@
 import { expectError, expectType } from "tsd";
-import envSchema, { EnvSchemaData, EnvSchemaOpt, envSchema as envSchemaNamed, default as envSchemaDefault } from "../..";
+import envSchema, { EnvSchemaData, EnvSchemaOpt, envSchema as envSchemaNamed, default as envSchemaDefault } from "..";
 import Ajv, { KeywordDefinition } from 'ajv'
 
 const schema = {
