@@ -154,7 +154,7 @@ const config = envSchema({
   schema: schema,
   data: data, // optional, default: process.env
   dotenv: true // load .env if it is there, default: false
-}) 
+})
 
 // config.data => ['127.0.0.1', '0.0.0.0']
 ```
@@ -198,13 +198,13 @@ console.log(config)
 You can specify the type of your `config`:
 
 ```ts
-import envSchema from 'env-schema';
+import { envSchema, JSONSchemaType } from 'env-schema';
 
 interface Env {
   PORT: number;
 }
 
-const schema = {
+const schema: JSONSchemaType<Env> = {
   type: 'object',
   required: [ 'PORT' ],
   properties: {
@@ -215,9 +215,27 @@ const schema = {
   }
 }
 
+const config = envSchema({
+  schema,
+})
+
+/* Or
+
+const schema = {
+  type: 'object',
+  required: [ 'PORT' ],
+  properties: {
+    PORT: {
+      type: 'number',
+      default: 3000
+    }
+  }
+} as const
+
 const config = envSchema<Env>({
   schema,
 })
+*/
 ```
 
 If no type is specified the `config` will have the `EnvSchemaData` type.
