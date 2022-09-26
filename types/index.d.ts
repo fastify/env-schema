@@ -1,4 +1,5 @@
 import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv';
+import { AnySchema } from 'ajv/dist/core';
 import { DotenvConfigOptions } from 'dotenv';
 import { ObjectSchema } from 'fluent-json-schema';
 
@@ -9,7 +10,7 @@ export type EnvSchemaData = {
 };
 
 export type EnvSchemaOpt<T = EnvSchemaData> = {
-  schema?: JSONSchemaType<T> | ObjectSchema;
+  schema?: JSONSchemaType<T> | AnySchema | ObjectSchema;
   data?: [EnvSchemaData, ...EnvSchemaData[]] | EnvSchemaData;
   env?: boolean;
   dotenv?: boolean | DotenvConfigOptions;

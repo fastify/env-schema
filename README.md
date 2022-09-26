@@ -198,7 +198,7 @@ console.log(config)
 You can specify the type of your `config`:
 
 ```ts
-import { envSchema, JSONSchemaType } from 'env-schema';
+import { envSchema, JSONSchemaType } from 'env-schema'
 
 interface Env {
   PORT: number;
@@ -216,26 +216,25 @@ const schema: JSONSchemaType<Env> = {
 }
 
 const config = envSchema({
-  schema,
+  schema
+})
+```
+
+You can also use a `JSON Schema` library like `typebox`:
+
+```ts
+import { envSchema } from 'env-schema'
+import { Static, Type } from '@sinclair/typebox'
+
+const schema = Type.Object({
+  PORT: Type.Number({ default: 3000 })
 })
 
-/* Or
+type Schema = Static<typeof schema>
 
-const schema = {
-  type: 'object',
-  required: [ 'PORT' ],
-  properties: {
-    PORT: {
-      type: 'number',
-      default: 3000
-    }
-  }
-} as const
-
-const config = envSchema<Env>({
-  schema,
+const config = envSchema<Schema>({
+  schema
 })
-*/
 ```
 
 If no type is specified the `config` will have the `EnvSchemaData` type.
