@@ -1,19 +1,36 @@
-import { expectError, expectType } from "tsd";
-import envSchema, { EnvSchemaData, EnvSchemaOpt, envSchema as envSchemaNamed, default as envSchemaDefault } from "..";
-import Ajv, { KeywordDefinition } from 'ajv'
+import { expectError, expectType } from 'tsd';
+import envSchema, {
+  EnvSchemaData,
+  EnvSchemaOpt,
+  envSchema as envSchemaNamed,
+  default as envSchemaDefault,
+} from '..';
+import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv';
+import { Static, Type } from '@sinclair/typebox';
 
-const schema = {
-  type: "object",
-  required: ["PORT"],
+interface EnvData {
+  PORT: number;
+}
+
+const schemaWithType: JSONSchemaType<EnvData> = {
+  type: 'object',
+  required: ['PORT'],
   properties: {
     PORT: {
-      type: "string",
+      type: 'number',
       default: 3000,
     },
   },
 };
+
+const schemaTypebox = Type.Object({
+  PORT: Type.Number({ default: 3000 }),
+});
+
+type SchemaTypebox = Static<typeof schemaTypebox>;
+
 const data = {
-  foo: "bar",
+  foo: 'bar',
 };
 
 expectType<EnvSchemaData>(envSchema());
@@ -23,10 +40,15 @@ expectType<EnvSchemaData>(envSchemaDefault());
 const emptyOpt: EnvSchemaOpt = {};
 expectType<EnvSchemaOpt>(emptyOpt);
 
-const optWithSchema: EnvSchemaOpt = {
-  schema,
+const optWithSchemaTypebox: EnvSchemaOpt = {
+  schema: schemaTypebox,
 };
-expectType<EnvSchemaOpt>(optWithSchema);
+expectType<EnvSchemaOpt>(optWithSchemaTypebox);
+
+const optWithSchemaWithType: EnvSchemaOpt<EnvData> = {
+  schema: schemaWithType,
+};
+expectType<EnvSchemaOpt<EnvData>>(optWithSchemaWithType);
 
 const optWithData: EnvSchemaOpt = {
   data,
@@ -58,37 +80,32 @@ const optWithDotEnvOpt: EnvSchemaOpt = {
 expectType<EnvSchemaOpt>(optWithDotEnvOpt);
 
 const optWithEnvExpand: EnvSchemaOpt = {
-  expandEnv: true
-}
+  expandEnv: true,
+};
 expectType<EnvSchemaOpt>(optWithEnvExpand);
 
 const optWithAjvInstance: EnvSchemaOpt = {
-  ajv: new Ajv()
+  ajv: new Ajv(),
 };
-expectType<EnvSchemaOpt>(optWithAjvInstance)
-expectType<KeywordDefinition>(envSchema.keywords.separator)
-
+expectType<EnvSchemaOpt>(optWithAjvInstance);
+expectType<KeywordDefinition>(envSchema.keywords.separator);
 
 const optWithAjvCustomOptions: EnvSchemaOpt = {
-    ajv: {
-        customOptions(ajvInstance: Ajv): Ajv {
-            return new Ajv();
-        }
-    }
+  ajv: {
+    customOptions(ajvInstance: Ajv): Ajv {
+      return new Ajv();
+    },
+  },
 };
-expectType<EnvSchemaOpt>(optWithAjvCustomOptions)
+expectType<EnvSchemaOpt>(optWithAjvCustomOptions);
 expectError<EnvSchemaOpt>({
-    ajv: {
-        customOptions(ajvInstance: Ajv) {
-        }
-    }
+  ajv: {
+    customOptions(ajvInstance: Ajv) {},
+  },
 });
 
-const envSchemaDefaultsToEnvSchemaData = envSchema({ schema: schema });
-expectType<EnvSchemaData>(envSchemaDefaultsToEnvSchemaData)
+const envSchemaWithType = envSchema({ schema: schemaWithType });
+expectType<EnvData>(envSchemaWithType);
 
-interface EnvData {
-  PORT: string
-}
-const envSchemaAllowsToSpecifyType = envSchema<EnvData>({ schema });
-expectType<EnvData>(envSchemaAllowsToSpecifyType)
+const envSchemaTypebox = envSchema<SchemaTypebox>({ schema: schemaTypebox });
+expectType<SchemaTypebox>(envSchemaTypebox);

@@ -154,7 +154,7 @@ const config = envSchema({
   schema: schema,
   data: data, // optional, default: process.env
   dotenv: true // load .env if it is there, default: false
-}) 
+})
 
 // config.data => ['127.0.0.1', '0.0.0.0']
 ```
@@ -198,13 +198,13 @@ console.log(config)
 You can specify the type of your `config`:
 
 ```ts
-import envSchema from 'env-schema';
+import { envSchema, JSONSchemaType } from 'env-schema'
 
 interface Env {
   PORT: number;
 }
 
-const schema = {
+const schema: JSONSchemaType<Env> = {
   type: 'object',
   required: [ 'PORT' ],
   properties: {
@@ -215,8 +215,25 @@ const schema = {
   }
 }
 
-const config = envSchema<Env>({
-  schema,
+const config = envSchema({
+  schema
+})
+```
+
+You can also use a `JSON Schema` library like `typebox`:
+
+```ts
+import { envSchema } from 'env-schema'
+import { Static, Type } from '@sinclair/typebox'
+
+const schema = Type.Object({
+  PORT: Type.Number({ default: 3000 })
+})
+
+type Schema = Static<typeof schema>
+
+const config = envSchema<Schema>({
+  schema
 })
 ```
 

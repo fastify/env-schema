@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@fastify/pre-commit": "^2.0.2",
+    "@sinclair/typebox": "^0.24.43",
     "ajv-formats": "^2.1.1",
     "fluent-json-schema": "^3.0.0",
     "snazzy": "^9.0.0",
