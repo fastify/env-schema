@@ -1,6 +1,6 @@
 {
   "name": "env-schema",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "Validate your env variable using Ajv and dotenv",
   "main": "index.js",
   "scripts": {
