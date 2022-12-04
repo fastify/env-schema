@@ -2,6 +2,7 @@ import { expectError, expectType } from 'tsd';
 import envSchema, {
   EnvSchemaData,
   EnvSchemaOpt,
+  keywords,
   envSchema as envSchemaNamed,
   default as envSchemaDefault,
 } from '..';
@@ -109,3 +110,6 @@ expectType<EnvData>(envSchemaWithType);
 
 const envSchemaTypebox = envSchema<SchemaTypebox>({ schema: schemaTypebox });
 expectType<SchemaTypebox>(envSchemaTypebox);
+
+expectType<KeywordDefinition>(keywords.separator)
+expectType<KeywordDefinition>(envSchema.keywords.separator)
