@@ -40,7 +40,7 @@ const sharedAjvInstance = getDefaultInstance()
 
 const optsSchemaValidator = sharedAjvInstance.compile(optsSchema)
 
-function loadAndValidateEnvironment (_opts) {
+function envSchema (_opts) {
   const opts = Object.assign({}, _opts)
 
   if (opts.schema && opts.schema[Symbol.for('fluent-schema-object')]) {
@@ -114,7 +114,8 @@ function getDefaultInstance () {
   })
 }
 
-module.exports = loadAndValidateEnvironment
-module.exports.default = loadAndValidateEnvironment
-module.exports.envSchema = loadAndValidateEnvironment
-module.exports.envSchema.keywords = { separator }
+envSchema.keywords = { separator }
+
+module.exports = envSchema
+module.exports.default = envSchema
+module.exports.envSchema = envSchema
