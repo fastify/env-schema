@@ -7,6 +7,8 @@
 Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv), and
 [dotenv](http://npm.im/dotenv).
 
+See [supporting resources](#supporting-resources) section for helpful guides on getting started
+
 ## Install
 
 ```
@@ -244,6 +246,13 @@ export type EnvSchemaData = {
   [key: string]: unknown;
 }
 ```
+
+## Supporting resources
+
+The following section lists helpful reference applications, articles, guides and other
+resources that demonstrate the use of env-schema in different use-cases and scenarios:
+
+* A reference application using [Fastify with env-schema and dotenv](https://github.com/lirantal/fastify-dotenv-envschema-example)
 
 ## Acknowledgements
 
