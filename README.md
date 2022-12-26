@@ -7,7 +7,7 @@
 Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv), and
 [dotenv](http://npm.im/dotenv).
 
-See [supporting resources](#supporting-resources) section for helpful guides on getting started
+See [supporting resources](#supporting-resources) section for helpful guides on getting started.
 
 ## Install
 
