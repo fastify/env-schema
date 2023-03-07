@@ -156,7 +156,7 @@ const config = envSchema({
   dotenv: true // load .env if it is there, default: false
 })
 
-// config.data => ['127.0.0.1', '0.0.0.0']
+// config.ALLOWED_HOSTS => ['127.0.0.1', '0.0.0.0']
 ```
 
 The ajv keyword definition objects can be accessed through the property `keywords` on the `envSchema` function:
