@@ -2,7 +2,7 @@
 
 const t = require('tap')
 const makeTest = require('./make-test')
-const { join } = require('path')
+const { join } = require('node:path')
 
 process.env.VALUE_FROM_ENV = 'pippo'
 

@@ -2,7 +2,7 @@
 
 const t = require('tap')
 const makeTest = require('./make-test')
-const { join } = require('path')
+const { join } = require('node:path')
 
 process.env.K8S_NAMESPACE = 'pippo'
 process.env.K8S_CLUSTERID = 'pluto'
