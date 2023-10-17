@@ -54,21 +54,21 @@ function envSchema (_opts) {
     throw error
   }
 
-  const schema = opts.schema
+  const { schema } = opts
   schema.additionalProperties = false
 
-  let data = opts.data
-  if (!Array.isArray(opts.data)) {
+  let { data, dotenv, env, expandEnv } = opts
+  if (!Array.isArray(data)) {
     data = [data]
   }
 
-  if (opts.dotenv) {
-    require('dotenv').config(Object.assign({}, opts.dotenv))
+  if (dotenv) {
+    require('dotenv').config(Object.assign({}, dotenv))
   }
 
   /* istanbul ignore else */
-  if (opts.env) {
-    if (opts.expandEnv) {
+  if (env) {
+    if (expandEnv) {
       require('dotenv-expand').expand({ parsed: process.env })
     }
     data.unshift(process.env)
