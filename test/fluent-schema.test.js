@@ -2,7 +2,7 @@
 
 const t = require('tap')
 
-if (parseInt(process.versions.node.split('.')[0]) <= 8) {
+if (parseInt(process.versions.node.split('.', 1)[0]) <= 8) {
   t.skip('not supported')
 } else {
   run()
