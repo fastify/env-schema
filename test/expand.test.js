@@ -46,6 +46,30 @@ const tests = [
     confExpected: {
       EXPANDED_VALUE_FROM_DOTENV: 'the password is password!'
     }
+  },
+  {
+    name: 'simple object - ok - expandEnv works when passed an arbitrary new object based on process.env as data',
+    schema: {
+      type: 'object',
+      properties: {
+        URL: {
+          type: 'string'
+        },
+        K8S_NAMESPACE: {
+          type: 'string'
+        }
+      }
+    },
+    expandEnv: true,
+    isOk: true,
+    data: {
+      ...process.env,
+      K8S_NAMESPACE: 'hello'
+    },
+    confExpected: {
+      URL: 'https://prefix.hello.pluto.my.domain.com',
+      K8S_NAMESPACE: 'hello'
+    }
   }
 ]
 
