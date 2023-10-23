@@ -68,14 +68,15 @@ function envSchema (_opts) {
 
   /* istanbul ignore else */
   if (env) {
-    if (expandEnv) {
-      require('dotenv-expand').expand({ parsed: process.env })
-    }
     data.unshift(process.env)
   }
 
   const merge = {}
   data.forEach(d => Object.assign(merge, d))
+
+  if (expandEnv) {
+    require('dotenv-expand').expand({ ignoreProcessEnv: true, parsed: merge })
+  }
 
   const ajv = chooseAjvInstance(sharedAjvInstance, opts.ajv)
 
