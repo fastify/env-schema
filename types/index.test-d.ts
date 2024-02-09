@@ -8,6 +8,7 @@ import envSchema, {
 } from '..';
 import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv';
 import { Static, Type } from '@sinclair/typebox';
+import S from 'fluent-json-schema';
 
 interface EnvData {
   PORT: number;
@@ -23,6 +24,11 @@ const schemaWithType: JSONSchemaType<EnvData> = {
     },
   },
 };
+
+const schemaFluent = S.object().prop(
+  'PORT',
+  S.number().default(3000).required()
+);
 
 const schemaTypebox = Type.Object({
   PORT: Type.Number({ default: 3000 }),
@@ -41,15 +47,20 @@ expectType<EnvSchemaData>(envSchemaDefault());
 const emptyOpt: EnvSchemaOpt = {};
 expectType<EnvSchemaOpt>(emptyOpt);
 
+const optWithSchemaFluent: EnvSchemaOpt = {
+  schema: schemaFluent,
+};
+expectType<EnvSchemaOpt>(optWithSchemaFluent);
+
 const optWithSchemaTypebox: EnvSchemaOpt = {
   schema: schemaTypebox,
 };
 expectType<EnvSchemaOpt>(optWithSchemaTypebox);
 
-const optWithSchemaWithType: EnvSchemaOpt<EnvData> = {
+const optWithSchemaWithType: EnvSchemaOpt = {
   schema: schemaWithType,
 };
-expectType<EnvSchemaOpt<EnvData>>(optWithSchemaWithType);
+expectType<EnvSchemaOpt>(optWithSchemaWithType);
 
 const optWithData: EnvSchemaOpt = {
   data,
@@ -105,11 +116,11 @@ expectError<EnvSchemaOpt>({
   },
 });
 
-const envSchemaWithType = envSchema({ schema: schemaWithType });
+const envSchemaWithType = envSchema<EnvData>({ schema: schemaWithType });
 expectType<EnvData>(envSchemaWithType);
 
 const envSchemaTypebox = envSchema<SchemaTypebox>({ schema: schemaTypebox });
 expectType<SchemaTypebox>(envSchemaTypebox);
 
-expectType<KeywordDefinition>(keywords.separator)
-expectType<KeywordDefinition>(envSchema.keywords.separator)
+expectType<KeywordDefinition>(keywords.separator);
+expectType<KeywordDefinition>(envSchema.keywords.separator);
