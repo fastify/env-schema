@@ -1,6 +1,6 @@
 'use strict'
 
-const t = require('tap')
+const { test } = require('node:test')
 const makeTest = require('./make-test')
 const { join } = require('node:path')
 
@@ -74,7 +74,7 @@ const tests = [
 ]
 
 tests.forEach(function (testConf) {
-  t.test(testConf.name, t => {
+  test(testConf.name, t => {
     const options = {
       schema: testConf.schema,
       data: testConf.data,

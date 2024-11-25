@@ -1,6 +1,6 @@
 'use strict'
 
-const { test } = require('tap')
+const { test } = require('node:test')
 const envSchema = require('../index')
 
 test('no globals', t => {
@@ -29,10 +29,10 @@ test('no globals', t => {
 
   {
     const conf = envSchema(JSON.parse(JSON.stringify(options)))
-    t.strictSame(conf, { MONGO_URL: 'good', PORT: 3000 })
+    t.assert.deepStrictEqual(conf, { MONGO_URL: 'good', PORT: 3000 })
   }
   {
     const conf = envSchema(JSON.parse(JSON.stringify(options)))
-    t.strictSame(conf, { MONGO_URL: 'good', PORT: 3000 })
+    t.assert.deepStrictEqual(conf, { MONGO_URL: 'good', PORT: 3000 })
   }
 })

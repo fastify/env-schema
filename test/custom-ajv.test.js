@@ -1,6 +1,6 @@
 'use strict'
 
-const t = require('tap')
+const { test } = require('node:test')
 const Ajv = require('ajv')
 const makeTest = require('./make-test')
 const { join } = require('node:path')
@@ -242,7 +242,7 @@ const ajv = new Ajv({
 })
 
 tests.forEach(function (testConf) {
-  t.test(testConf.name, t => {
+  test(testConf.name, t => {
     const options = {
       schema: testConf.schema,
       data: testConf.data,
@@ -284,7 +284,7 @@ const strictValidator = new Ajv({
 });
 
 [noCoercionTest].forEach(function (testConf) {
-  t.test(testConf.name, t => {
+  test(testConf.name, t => {
     const options = {
       schema: testConf.schema,
       data: testConf.data,
@@ -297,7 +297,7 @@ const strictValidator = new Ajv({
   })
 })
 
-t.test('ajv enhancement', t => {
+test('ajv enhancement', async t => {
   t.plan(2)
   const testCase = {
     schema: {
@@ -317,7 +317,7 @@ t.test('ajv enhancement', t => {
     }
   }
 
-  t.test('return', t => {
+  await t.test('return', async t => {
     const options = {
       schema: testCase.schema,
       data: testCase.data,
@@ -331,7 +331,7 @@ t.test('ajv enhancement', t => {
     makeTest(t, options, testCase.isOk, testCase.confExpected)
   })
 
-  t.test('no return', t => {
+  await t.test('no return', async t => {
     const options = {
       schema: testCase.schema,
       data: testCase.data,

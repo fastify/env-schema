@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "standard | snazzy",
     "test": "npm run test:unit && npm run test:typescript",
-    "test:unit": "tap",
+    "test:unit": "c8 --100 node --test",
     "test:typescript": "tsd"
   },
   "repository": {
@@ -39,10 +39,10 @@
     "@fastify/pre-commit": "^2.1.0",
     "@sinclair/typebox": "^0.34.3",
     "ajv-formats": "^3.0.1",
+    "c8": "^10.1.2",
     "fluent-json-schema": "^5.0.0",
     "snazzy": "^9.0.0",
     "standard": "^17.1.0",
-    "tap": "^18.7.1",
     "tsd": "^0.31.0"
   },
   "pre-commit": [
