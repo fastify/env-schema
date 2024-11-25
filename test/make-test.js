@@ -8,13 +8,13 @@ function makeTest (t, options, isOk, confExpected, errorMessage) {
 
   try {
     const conf = envSchema(options)
-    t.strictSame(conf, confExpected)
+    t.assert.deepStrictEqual(conf, confExpected)
   } catch (err) {
     if (isOk) {
-      t.fail(err)
+      t.assert.fail(err)
       return
     }
-    t.strictSame(err.message, errorMessage)
+    t.assert.strictEqual(err.message, errorMessage)
   }
 }
 
