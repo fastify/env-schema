@@ -225,7 +225,7 @@ const schema: JSONSchemaType<Env> = {
   }
 }
 
-const config = envSchema({
+const config = envSchema<Env>({
   schema
 })
 ```
