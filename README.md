@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/fastify/env-schema/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/fastify/env-schema/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/env-schema.svg?style=flat)](https://www.npmjs.com/package/env-schema)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
+[![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 
 Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv), and
 [dotenv](http://npm.im/dotenv).

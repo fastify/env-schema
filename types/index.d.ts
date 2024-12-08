@@ -1,15 +1,15 @@
-import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv';
-import { AnySchema } from 'ajv/dist/core';
-import { DotenvConfigOptions } from 'dotenv';
+import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv'
+import { AnySchema } from 'ajv/dist/core'
+import { DotenvConfigOptions } from 'dotenv'
 
 type EnvSchema = typeof envSchema
 
 declare namespace envSchema {
-  export type { JSONSchemaType };
+  export type { JSONSchemaType }
 
   export type EnvSchemaData = {
     [key: string]: unknown;
-  };
+  }
 
   export type EnvSchemaOpt<T = EnvSchemaData> = {
     schema?: JSONSchemaType<T> | AnySchema;
@@ -22,7 +22,7 @@ declare namespace envSchema {
     | {
       customOptions(ajvInstance: Ajv): Ajv;
     };
-  };
+  }
 
   export const keywords: {
     separator: KeywordDefinition
@@ -32,5 +32,5 @@ declare namespace envSchema {
   export { envSchema as default }
 }
 
-declare function envSchema<T = envSchema.EnvSchemaData>(_opts?: envSchema.EnvSchemaOpt<T>): T
+declare function envSchema<T = envSchema.EnvSchemaData> (_opts?: envSchema.EnvSchemaOpt<T>): T
 export = envSchema
