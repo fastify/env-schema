@@ -6,7 +6,8 @@
   "type": "commonjs",
   "types": "types/index.d.ts",
   "scripts": {
-    "lint": "standard | snazzy",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "test": "npm run test:unit && npm run test:typescript",
     "test:unit": "c8 --100 node --test",
     "test:typescript": "tsd"
@@ -41,8 +42,7 @@
     "ajv-formats": "^3.0.1",
     "c8": "^10.1.2",
     "fluent-json-schema": "^5.0.0",
-    "snazzy": "^9.0.0",
-    "standard": "^17.1.0",
+    "neostandard": "^0.11.9",
     "tsd": "^0.31.0"
   },
   "pre-commit": [
