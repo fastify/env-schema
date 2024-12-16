@@ -42,7 +42,7 @@
     "ajv-formats": "^3.0.1",
     "c8": "^10.1.2",
     "fluent-json-schema": "^5.0.0",
-    "neostandard": "^0.11.9",
+    "neostandard": "^0.12.0",
     "tsd": "^0.31.0"
   },
   "pre-commit": [
