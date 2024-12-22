@@ -4,6 +4,7 @@ import envSchema, {
   EnvSchemaOpt,
   keywords,
   envSchema as envSchemaNamed,
+  // eslint-disable-next-line import-x/no-named-default -- Testing default export
   default as envSchemaDefault,
 } from '..'
 import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv'
