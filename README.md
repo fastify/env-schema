@@ -100,7 +100,7 @@ const config = envSchema({
 })
 ```
 
-Note that it is mandatory returning the ajv instance.
+Note that it is mandatory to return the ajv instance.
 
 ### Order of configuration loading
 
@@ -257,16 +257,16 @@ export type EnvSchemaData = {
 
 ## Supporting resources
 
-The following section lists helpful reference applications, articles, guides and other
-resources that demonstrate the use of env-schema in different use-cases and scenarios:
+The following section lists helpful reference applications, articles, guides, and other
+resources that demonstrate the use of env-schema in different use cases and scenarios:
 
 * A reference application using [Fastify with env-schema and dotenv](https://github.com/lirantal/fastify-dotenv-envschema-example)
 
-## Acknowledgements
+## Acknowledgments
 
 Kindly sponsored by [Mia Platform](https://www.mia-platform.eu/) and
 [NearForm](https://nearform.com).
 
 ## License
 
-MIT
+Licensed under [MIT](./LICENSE).
