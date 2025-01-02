@@ -94,7 +94,7 @@ expectType<KeywordDefinition>(envSchema.keywords.separator)
 
 const optWithAjvCustomOptions: EnvSchemaOpt = {
   ajv: {
-    customOptions (ajvInstance: Ajv): Ajv {
+    customOptions (_ajvInstance: Ajv): Ajv {
       return new Ajv()
     },
   },
@@ -102,7 +102,7 @@ const optWithAjvCustomOptions: EnvSchemaOpt = {
 expectType<EnvSchemaOpt>(optWithAjvCustomOptions)
 expectError<EnvSchemaOpt>({
   ajv: {
-    customOptions (ajvInstance: Ajv) {},
+    customOptions (_ajvInstance: Ajv) {},
   },
 })
 

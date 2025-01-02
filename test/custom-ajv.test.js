@@ -336,7 +336,7 @@ test('ajv enhancement', async t => {
       schema: testCase.schema,
       data: testCase.data,
       ajv: {
-        customOptions (ajvInstance) {
+        customOptions (_ajvInstance) {
           // do nothing
         }
       }
