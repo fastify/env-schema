@@ -43,7 +43,7 @@ const optsSchemaValidator = sharedAjvInstance.compile(optsSchema)
 function envSchema (_opts) {
   const opts = Object.assign({}, _opts)
 
-  if (opts.schema && opts.schema[Symbol.for('fluent-schema-object')]) {
+  if (opts.schema?.[Symbol.for('fluent-schema-object')]) {
     opts.schema = opts.schema.valueOf()
   }
 
