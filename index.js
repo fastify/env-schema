@@ -91,19 +91,22 @@ function envSchema (_opts) {
 }
 
 function chooseAjvInstance (defaultInstance, ajvOpts) {
-  if (!ajvOpts) {
-    return defaultInstance
-  } else if (typeof ajvOpts === 'object' && typeof ajvOpts.customOptions === 'function') {
-    const ajv = ajvOpts.customOptions(getDefaultInstance())
+  if (ajvOpts instanceof Ajv) {
+    return ajvOpts
+  }
+  let ajv = defaultInstance
+  if (typeof ajvOpts === 'object' && typeof ajvOpts.customOptions === 'function') {
+    ajv = ajvOpts.customOptions(getDefaultInstance())
     if (!(ajv instanceof Ajv)) {
       throw new TypeError('customOptions function must return an instance of Ajv')
     }
-    return ajv
+  } else if (typeof ajvOpts === 'object' && typeof ajvOpts.customOptions === 'object') {
+    ajv = getDefaultInstance(ajvOpts.customOptions)
   }
-  return ajvOpts
+  return ajv
 }
 
-function getDefaultInstance () {
+function getDefaultInstance (overrideOpts = {}) {
   return new Ajv({
     allErrors: true,
     removeAdditional: true,
@@ -111,7 +114,8 @@ function getDefaultInstance () {
     coerceTypes: true,
     allowUnionTypes: true,
     addUsedSchema: false,
-    keywords: [separator]
+    keywords: [separator],
+    ...overrideOpts
   })
 }
 
