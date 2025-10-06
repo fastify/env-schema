@@ -83,7 +83,24 @@ console.log(config)
 // output: { PORT: 3000 }
 ```
 
-It is possible to enhance the default ajv instance providing the `customOptions` function parameter.
+It is possible to enhance the default ajv instance providing the `customOptions` as a function or object parameter.
+
+When `customOptions` is an object, the provided ajv options override the default ones:
+
+```js
+const config = envSchema({
+  schema: schema,
+  data: data,
+  dotenv: true,
+  ajv: {
+    customOptions: {
+      coerceTypes: true
+    }
+  }
+})
+```
+
+When `customOptions` is a function, it must return the updated ajv instance.
 This example shows how to use the `format` keyword in your schemas.
 
 ```js
@@ -99,8 +116,6 @@ const config = envSchema({
   }
 })
 ```
-
-Note that it is mandatory to return the ajv instance.
 
 ### Order of configuration loading
 

@@ -298,8 +298,8 @@ const strictValidator = new Ajv({
 })
 
 test('ajv enhancement', async t => {
-  t.plan(2)
-  const testCase = {
+  t.plan(3)
+  const testCaseFn = {
     schema: {
       type: 'object',
       required: ['MONGODB_URL'],
@@ -316,11 +316,27 @@ test('ajv enhancement', async t => {
       MONGODB_URL: 'mongodb://localhost/pippo'
     }
   }
+  const testCaseObj = {
+    schema: {
+      type: 'object',
+      required: ['PORT'],
+      properties: {
+        PORT: {
+          type: 'string',
+        }
+      }
+    },
+    data: [{ PORT: 3333 }],
+    isOk: true,
+    confExpected: {
+      PORT: '3333'
+    }
+  }
 
-  await t.test('return', async t => {
+  await t.test('customOptions fn return', async t => {
     const options = {
-      schema: testCase.schema,
-      data: testCase.data,
+      schema: testCaseFn.schema,
+      data: testCaseFn.data,
       ajv: {
         customOptions (ajvInstance) {
           require('ajv-formats')(ajvInstance)
@@ -328,13 +344,13 @@ test('ajv enhancement', async t => {
         }
       }
     }
-    makeTest(t, options, testCase.isOk, testCase.confExpected)
+    makeTest(t, options, testCaseFn.isOk, testCaseFn.confExpected)
   })
 
-  await t.test('no return', async t => {
+  await t.test('customOptions fn no return', async t => {
     const options = {
-      schema: testCase.schema,
-      data: testCase.data,
+      schema: testCaseFn.schema,
+      data: testCaseFn.data,
       ajv: {
         customOptions (_ajvInstance) {
           // do nothing
@@ -342,5 +358,18 @@ test('ajv enhancement', async t => {
       }
     }
     makeTest(t, options, false, undefined, 'customOptions function must return an instance of Ajv')
+  })
+
+  await t.test('customOptions object override', async t => {
+    const options = {
+      schema: testCaseObj.schema,
+      data: testCaseObj.data,
+      ajv: {
+        customOptions: {
+          coerceTypes: true,
+        }
+      }
+    }
+    makeTest(t, options, testCaseObj.isOk, testCaseObj.confExpected)
   })
 })
