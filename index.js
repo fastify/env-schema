@@ -20,6 +20,18 @@ const separator = {
   }
 }
 
+function expandVariables (obj) {
+  // Expand environment variables in the format $VAR or ${VAR}
+  for (const key in obj) {
+    const value = obj[key]
+    if (typeof value === 'string') {
+      obj[key] = value.replace(/\$\{?([A-Z_][A-Z0-9_]*)\}?/gi, (match, varName) => {
+        return obj[varName] !== undefined ? obj[varName] : match
+      })
+    }
+  }
+}
+
 const optsSchema = {
   type: 'object',
   required: ['schema'],
@@ -96,7 +108,7 @@ function envSchema (_opts) {
   data.forEach(d => Object.assign(merge, d))
 
   if (expandEnv) {
-    require('dotenv-expand').expand({ ignoreProcessEnv: true, parsed: merge })
+    expandVariables(merge)
   }
 
   const ajv = chooseAjvInstance(sharedAjvInstance, opts.ajv)

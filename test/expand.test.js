@@ -70,6 +70,25 @@ const tests = [
       URL: 'https://prefix.hello.pluto.my.domain.com',
       K8S_NAMESPACE: 'hello'
     }
+  },
+  {
+    name: 'simple object - ok - expandEnv with undefined variable keeps placeholder',
+    schema: {
+      type: 'object',
+      properties: {
+        MESSAGE: {
+          type: 'string'
+        }
+      }
+    },
+    expandEnv: true,
+    isOk: true,
+    data: {
+      MESSAGE: 'Hello $UNDEFINED_VAR world'
+    },
+    confExpected: {
+      MESSAGE: 'Hello $UNDEFINED_VAR world'
+    }
   }
 ]
 
