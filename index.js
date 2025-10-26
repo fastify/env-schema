@@ -87,7 +87,7 @@ function envSchema (_opts) {
       const envFileContent = readFileSync(resolve(path), encoding)
       parsedEnv = parseEnv(envFileContent)
     } catch (err) {
-      // Silently ignore if file doesn't exist (matches dotenv behavior)
+      // Silently ignore if file doesn't exist
       if (err.code !== 'ENOENT') {
         throw err
       }
