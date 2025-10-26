@@ -321,6 +321,58 @@ const tests = [
     data: {},
     isOk: false,
     errorMessage: 'env must have required property \'A\', env must have required property \'B\', env must have required property \'C\''
+  },
+  {
+    name: 'simple object - ok - dotenv with non-existent file',
+    schema: {
+      type: 'object',
+      properties: {
+        PORT: {
+          type: 'integer',
+          default: 3000
+        }
+      }
+    },
+    data: { PORT: 8080 },
+    dotenv: { path: join(__dirname, '.env.nonexistent') },
+    isOk: true,
+    confExpected: {
+      PORT: 8080
+    }
+  },
+  {
+    name: 'simple object - ok - dotenv true with no file',
+    schema: {
+      type: 'object',
+      properties: {
+        PORT: {
+          type: 'integer',
+          default: 3000
+        }
+      }
+    },
+    data: { PORT: 9090 },
+    dotenv: true,
+    isOk: true,
+    confExpected: {
+      PORT: 9090
+    }
+  },
+  {
+    name: 'simple object - KO - dotenv with directory instead of file',
+    schema: {
+      type: 'object',
+      properties: {
+        PORT: {
+          type: 'integer',
+          default: 3000
+        }
+      }
+    },
+    data: { PORT: 8080 },
+    dotenv: { path: __dirname },
+    isOk: false,
+    errorMessage: 'EISDIR: illegal operation on a directory, read'
   }
 ]
 

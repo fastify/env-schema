@@ -1,6 +1,9 @@
 'use strict'
 
 const Ajv = require('ajv')
+const { parseEnv } = require('node:util')
+const { readFileSync } = require('node:fs')
+const { resolve } = require('node:path')
 
 const separator = {
   keyword: 'separator',
@@ -62,13 +65,31 @@ function envSchema (_opts) {
     data = [data]
   }
 
+  let parsedEnv
   if (dotenv) {
-    require('dotenv').config(Object.assign({}, dotenv))
+    const dotenvOpts = typeof dotenv === 'object' ? dotenv : {}
+    const path = dotenvOpts.path || '.env'
+    const encoding = dotenvOpts.encoding || 'utf8'
+
+    try {
+      const envFileContent = readFileSync(resolve(path), encoding)
+      parsedEnv = parseEnv(envFileContent)
+    } catch (err) {
+      // Silently ignore if file doesn't exist (matches dotenv behavior)
+      if (err.code !== 'ENOENT') {
+        throw err
+      }
+      parsedEnv = {}
+    }
   }
 
   /* istanbul ignore else */
   if (env) {
     data.unshift(process.env)
+  }
+
+  if (parsedEnv) {
+    data.unshift(parsedEnv)
   }
 
   const merge = {}
