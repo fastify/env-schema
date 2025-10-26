@@ -1,6 +1,19 @@
 import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv'
 import { AnySchema } from 'ajv/dist/core'
-import { DotenvConfigOptions } from 'dotenv'
+
+/**
+ * Options for loading .env files
+ */
+interface DotenvOptions {
+  /**
+   * Path to .env file (default: '.env')
+   */
+  path?: string;
+  /**
+   * Encoding of .env file (default: 'utf8')
+   */
+  encoding?: 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'latin1' | 'binary' | 'hex';
+}
 
 type EnvSchema = typeof envSchema
 
@@ -15,7 +28,7 @@ declare namespace envSchema {
     schema?: JSONSchemaType<T> | AnySchema;
     data?: [EnvSchemaData, ...EnvSchemaData[]] | EnvSchemaData;
     env?: boolean;
-    dotenv?: boolean | DotenvConfigOptions;
+    dotenv?: boolean | DotenvOptions;
     expandEnv?: boolean;
     ajv?:
     | Ajv

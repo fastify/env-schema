@@ -1,6 +1,9 @@
 'use strict'
 
 const Ajv = require('ajv')
+const { parseEnv } = require('node:util')
+const { readFileSync } = require('node:fs')
+const { resolve } = require('node:path')
 
 const separator = {
   keyword: 'separator',
@@ -14,6 +17,18 @@ const separator = {
   errors: false,
   compile: (schema) => (data, { parentData: pData, parentDataProperty: pDataProperty }) => {
     pData[pDataProperty] = data === '' ? [] : data.split(schema)
+  }
+}
+
+function expandVariables (obj) {
+  // Expand environment variables in the format $VAR or ${VAR}
+  for (const key in obj) {
+    const value = obj[key]
+    if (typeof value === 'string') {
+      obj[key] = value.replace(/\$\{?([A-Z_][A-Z0-9_]*)\}?/gi, (match, varName) => {
+        return obj[varName] !== undefined ? obj[varName] : match
+      })
+    }
   }
 }
 
@@ -62,8 +77,22 @@ function envSchema (_opts) {
     data = [data]
   }
 
+  let parsedEnv
   if (dotenv) {
-    require('dotenv').config(Object.assign({}, dotenv))
+    const dotenvOpts = typeof dotenv === 'object' ? dotenv : {}
+    const path = dotenvOpts.path || '.env'
+    const encoding = dotenvOpts.encoding || 'utf8'
+
+    try {
+      const envFileContent = readFileSync(resolve(path), encoding)
+      parsedEnv = parseEnv(envFileContent)
+    } catch (err) {
+      // Silently ignore if file doesn't exist
+      if (err.code !== 'ENOENT') {
+        throw err
+      }
+      parsedEnv = {}
+    }
   }
 
   /* istanbul ignore else */
@@ -71,11 +100,15 @@ function envSchema (_opts) {
     data.unshift(process.env)
   }
 
+  if (parsedEnv) {
+    data.unshift(parsedEnv)
+  }
+
   const merge = {}
   data.forEach(d => Object.assign(merge, d))
 
   if (expandEnv) {
-    require('dotenv-expand').expand({ ignoreProcessEnv: true, parsed: merge })
+    expandVariables(merge)
   }
 
   const ajv = chooseAjvInstance(sharedAjvInstance, opts.ajv)

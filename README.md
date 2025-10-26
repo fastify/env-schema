@@ -4,8 +4,8 @@
 [![NPM version](https://img.shields.io/npm/v/env-schema.svg?style=flat)](https://www.npmjs.com/package/env-schema)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 
-Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv), and
-[dotenv](http://npm.im/dotenv).
+Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv), with `.env` file support using
+Node.js built-in `parseEnv` from `node:util`.
 
 See [supporting resources](#supporting-resources) section for helpful guides on getting started.
 
@@ -45,7 +45,9 @@ console.log(config)
 // output: { PORT: 3000 }
 ```
 
-see [DotenvConfigOptions](https://github.com/motdotla/dotenv#options)
+Supported `.env` file options:
+- `path` (string): Path to the .env file (default: '.env')
+- `encoding` (string): File encoding (default: 'utf8')
 
 ### Custom ajv instance
 
@@ -121,7 +123,7 @@ const config = envSchema({
 
 The order of precedence for configuration data is as follows, from least
 significant to most:
-1. Data sourced from `.env` file (when `dotenv` configuration option is set)
+1. Data sourced from `.env` file (when `dotenv` configuration option is set) - parsed using Node.js built-in `parseEnv`
 2. Data sourced from environment variables in `process.env`
 3. Data provided via the `data` configuration option
 
@@ -137,7 +139,7 @@ const config = envSchema({
   schema: S.object().prop('PORT', S.number().default(3000).required()),
   data: data, // optional, default: process.env
   dotenv: true, // load .env if it is there, default: false
-  expandEnv: true, // use dotenv-expand, default: false
+  expandEnv: true, // expand environment variables like $VAR or ${VAR}, default: false
 })
 
 console.log(config)
