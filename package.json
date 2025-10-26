@@ -1,7 +1,7 @@
 {
   "name": "env-schema",
   "version": "6.1.0",
-  "description": "Validate your env variables using Ajv and Node.js built-in parseEnv",
+  "description": "Validate your env variables using Ajv with .env file support using Node.js built-in parseEnv",
   "main": "index.js",
   "type": "commonjs",
   "types": "types/index.d.ts",
