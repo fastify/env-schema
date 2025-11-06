@@ -71,6 +71,6 @@
     "eslint": "^9.17.0",
     "fluent-json-schema": "^6.0.0",
     "neostandard": "^0.12.0",
-    "tsd": "^0.32.0"
+    "tsd": "^0.33.0"
   }
 }
