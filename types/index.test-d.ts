@@ -8,7 +8,7 @@ import envSchema, {
   default as envSchemaDefault,
 } from '..'
 import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv'
-import { Static, Type } from '@sinclair/typebox'
+import { Static, Type } from 'typebox'
 
 interface EnvData {
   PORT: number;

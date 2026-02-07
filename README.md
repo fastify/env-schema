@@ -46,6 +46,7 @@ console.log(config)
 ```
 
 Supported `.env` file options:
+
 - `path` (string): Path to the .env file (default: '.env')
 - `encoding` (string): File encoding (default: 'utf8')
 
@@ -123,6 +124,7 @@ const config = envSchema({
 
 The order of precedence for configuration data is as follows, from least
 significant to most:
+
 1. Data sourced from `.env` file (when `dotenv` configuration option is set) - parsed using Node.js built-in `parseEnv`
 2. Data sourced from environment variables in `process.env`
 3. Data provided via the `data` configuration option
@@ -149,9 +151,11 @@ console.log(config)
 **NB** Support for additional properties in the schema is disabled for this plugin, with the `additionalProperties` flag set to `false` internally.
 
 ### Custom keywords
+
 This library supports the following Ajv custom keywords:
 
 #### `separator`
+
 Type: `string`
 
 Applies to type: `string`
@@ -159,6 +163,7 @@ Applies to type: `string`
 When present, the provided schema value will be split on this value.
 
 Example:
+
 ```js
 const envSchema = require('env-schema')
 
@@ -251,7 +256,7 @@ You can also use a `JSON Schema` library like `typebox`:
 
 ```ts
 import { envSchema } from 'env-schema'
-import { Static, Type } from '@sinclair/typebox'
+import { Static, Type } from 'typebox'
 
 const schema = Type.Object({
   PORT: Type.Number({ default: 3000 })
@@ -277,7 +282,7 @@ export type EnvSchemaData = {
 The following section lists helpful reference applications, articles, guides, and other
 resources that demonstrate the use of env-schema in different use cases and scenarios:
 
-* A reference application using [Fastify with env-schema and dotenv](https://github.com/lirantal/fastify-dotenv-envschema-example)
+- A reference application using [Fastify with env-schema and dotenv](https://github.com/lirantal/fastify-dotenv-envschema-example)
 
 ## Acknowledgments
 
