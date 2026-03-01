@@ -68,7 +68,7 @@
     "@sinclair/typebox": "^0.34.3",
     "ajv-formats": "^3.0.1",
     "c8": "^11.0.0",
-    "eslint": "^9.17.0",
+    "eslint": "^10.0.2",
     "fluent-json-schema": "^6.0.0",
     "neostandard": "^0.12.0",
     "tsd": "^0.33.0"
