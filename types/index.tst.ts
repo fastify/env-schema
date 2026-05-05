@@ -1,11 +1,11 @@
-import { expectError, expectType } from 'tsd'
+import { expect } from 'tstyche'
 import envSchema, {
   EnvSchemaData,
   EnvSchemaOpt,
   keywords,
   envSchema as envSchemaNamed,
   default as envSchemaDefault,
-} from '..'
+} from '.'
 import Ajv, { KeywordDefinition, JSONSchemaType } from 'ajv'
 import { Static, Type } from 'typebox'
 
@@ -34,62 +34,62 @@ const data = {
   foo: 'bar',
 }
 
-expectType<EnvSchemaData>(envSchema())
-expectType<EnvSchemaData>(envSchemaNamed())
-expectType<EnvSchemaData>(envSchemaDefault())
+expect(envSchema()).type.toBe<EnvSchemaData | unknown>()
+expect(envSchemaNamed()).type.toBe<EnvSchemaData | unknown>()
+expect(envSchemaDefault()).type.toBe<EnvSchemaData | unknown>()
 
 const emptyOpt: EnvSchemaOpt = {}
-expectType<EnvSchemaOpt>(emptyOpt)
+expect(emptyOpt).type.toBe<EnvSchemaOpt>()
 
 const optWithSchemaTypebox: EnvSchemaOpt = {
   schema: schemaTypebox,
 }
-expectType<EnvSchemaOpt>(optWithSchemaTypebox)
+expect(optWithSchemaTypebox).type.toBe<EnvSchemaOpt>()
 
 const optWithSchemaWithType: EnvSchemaOpt<EnvData> = {
   schema: schemaWithType,
 }
-expectType<EnvSchemaOpt<EnvData>>(optWithSchemaWithType)
+expect(optWithSchemaWithType).type.toBe<EnvSchemaOpt<EnvData>>()
 
 const optWithData: EnvSchemaOpt = {
   data,
 }
-expectType<EnvSchemaOpt>(optWithData)
+expect(optWithData).type.toBe<EnvSchemaOpt>()
 
-expectError<EnvSchemaOpt>({
-  data: [], // min 1 item
-})
+expect({
+  data: [],
+}).type.not.toBeAssignableTo<EnvSchemaOpt>()
 
 const optWithArrayData: EnvSchemaOpt = {
   data: [{}],
 }
-expectType<EnvSchemaOpt>(optWithArrayData)
+expect(optWithArrayData).type.toBe<EnvSchemaOpt>()
 
 const optWithMultipleItemArrayData: EnvSchemaOpt = {
   data: [{}, {}],
 }
-expectType<EnvSchemaOpt>(optWithMultipleItemArrayData)
+expect(optWithMultipleItemArrayData).type.toBe<EnvSchemaOpt>()
 
 const optWithDotEnvBoolean: EnvSchemaOpt = {
   dotenv: true,
 }
-expectType<EnvSchemaOpt>(optWithDotEnvBoolean)
+expect(optWithDotEnvBoolean).type.toBe<EnvSchemaOpt>()
 
 const optWithDotEnvOpt: EnvSchemaOpt = {
   dotenv: {},
 }
-expectType<EnvSchemaOpt>(optWithDotEnvOpt)
+expect(optWithDotEnvOpt).type.toBe<EnvSchemaOpt>()
 
 const optWithEnvExpand: EnvSchemaOpt = {
   expandEnv: true,
 }
-expectType<EnvSchemaOpt>(optWithEnvExpand)
+expect(optWithEnvExpand).type.toBe<EnvSchemaOpt>()
 
 const optWithAjvInstance: EnvSchemaOpt = {
   ajv: new Ajv(),
 }
-expectType<EnvSchemaOpt>(optWithAjvInstance)
-expectType<KeywordDefinition>(envSchema.keywords.separator)
+expect(optWithAjvInstance).type.toBe<EnvSchemaOpt>()
+expect(envSchema.keywords.separator).type.toBe<KeywordDefinition>()
 
 const optWithAjvCustomOptions: EnvSchemaOpt = {
   ajv: {
@@ -98,18 +98,20 @@ const optWithAjvCustomOptions: EnvSchemaOpt = {
     },
   },
 }
-expectType<EnvSchemaOpt>(optWithAjvCustomOptions)
-expectError<EnvSchemaOpt>({
+expect(optWithAjvCustomOptions).type.toBe<EnvSchemaOpt>()
+
+expect({
   ajv: {
-    customOptions (_ajvInstance: Ajv) {},
+    customOptions (_ajvInstance: Ajv) {
+    },
   },
-})
+}).type.not.toBeAssignableTo<EnvSchemaOpt>()
 
 const envSchemaWithType = envSchema({ schema: schemaWithType })
-expectType<EnvData>(envSchemaWithType)
+expect(envSchemaWithType).type.toBe<EnvData>()
 
 const envSchemaTypebox = envSchema<SchemaTypebox>({ schema: schemaTypebox })
-expectType<SchemaTypebox>(envSchemaTypebox)
+expect(envSchemaTypebox).type.toBe<SchemaTypebox>()
 
-expectType<KeywordDefinition>(keywords.separator)
-expectType<KeywordDefinition>(envSchema.keywords.separator)
+expect(keywords.separator).type.toBe<KeywordDefinition>()
+expect(envSchema.keywords.separator).type.toBe<KeywordDefinition>()
