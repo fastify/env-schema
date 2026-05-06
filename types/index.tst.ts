@@ -56,9 +56,9 @@ const optWithData: EnvSchemaOpt = {
 }
 expect(optWithData).type.toBe<EnvSchemaOpt>()
 
-expect({
+expect<EnvSchemaOpt>().type.not.toBeAssignableFrom({
   data: [],
-}).type.not.toBeAssignableTo<EnvSchemaOpt>()
+})
 
 const optWithArrayData: EnvSchemaOpt = {
   data: [{}],
