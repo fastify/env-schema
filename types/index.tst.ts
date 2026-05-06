@@ -100,12 +100,12 @@ const optWithAjvCustomOptions: EnvSchemaOpt = {
 }
 expect(optWithAjvCustomOptions).type.toBe<EnvSchemaOpt>()
 
-expect({
-  ajv: {
-    customOptions (_ajvInstance: Ajv) {
-    },
-  },
-}).type.not.toBeAssignableTo<EnvSchemaOpt>()
+expect<EnvSchemaOpt>()
+  .type.not.toBeAssignableFrom({
+    ajv: {
+      customOptions (_ajvInstance: Ajv) {}
+    }
+  })
 
 const envSchemaWithType = envSchema({ schema: schemaWithType })
 expect(envSchemaWithType).type.toBe<EnvData>()
