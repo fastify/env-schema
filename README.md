@@ -4,7 +4,7 @@
 [![NPM version](https://img.shields.io/npm/v/env-schema.svg?style=flat)](https://www.npmjs.com/package/env-schema)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 
-Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](http://npm.im/ajv), with `.env` file support using
+Utility to check environment variables using [JSON schema](https://json-schema.org/), [Ajv](https://www.npmjs.com/package/ajv), with `.env` file support using
 Node.js built-in `parseEnv` from `node:util`.
 
 See [supporting resources](#supporting-resources) section for helpful guides on getting started.
@@ -131,7 +131,7 @@ significant to most:
 
 ### Fluent-Schema API
 
-It is also possible to use [fluent-json-schema](http://npm.im/fluent-json-schema):
+It is also possible to use [fluent-json-schema](https://www.npmjs.com/package/fluent-json-schema):
 
 ```js
 const envSchema = require('env-schema')
