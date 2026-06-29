@@ -286,7 +286,7 @@ resources that demonstrate the use of env-schema in different use cases and scen
 
 ## Acknowledgments
 
-Kindly sponsored by [Mia Platform](https://www.mia-platform.eu/) and
+Kindly sponsored by [Mia Platform](https://mia-platform.eu) and
 [NearForm](https://nearform.com).
 
 ## License
