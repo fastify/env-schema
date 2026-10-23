@@ -20,14 +20,51 @@ const separator = {
   }
 }
 
+// Same syntax as dotenv-expand, which was used before: $VAR, ${VAR},
+// ${VAR:-default} (VAR unset or empty), ${VAR-default} (VAR unset) and \$
+const EXPANSION_RE = /\\\$|\$\{([A-Z_][A-Z0-9_]*)(:?-)([^}]*)\}|\$\{?([A-Z_][A-Z0-9_]*)\}?/gi
+
 function expandVariables (obj) {
-  // Expand environment variables in the format $VAR or ${VAR}
+  const raw = Object.assign({}, obj)
+  const expanded = {}
+
+  // References are resolved against the expanded value of the referenced
+  // variable, whatever the order of the keys
+  function expand (key, stack) {
+    if (Object.prototype.hasOwnProperty.call(expanded, key)) {
+      return expanded[key]
+    }
+    if (stack.includes(key)) {
+      // circular reference, keep it as written
+      return undefined
+    }
+    const value = raw[key]
+    if (typeof value !== 'string') {
+      return value
+    }
+    stack.push(key)
+    const result = interpolate(value, stack)
+    stack.pop()
+    expanded[key] = result
+    return result
+  }
+
+  function interpolate (value, stack) {
+    return value.replace(EXPANSION_RE, (match, name, operator, fallback, plainName) => {
+      if (match === '\\$') {
+        return '$'
+      }
+      const resolved = raw[name || plainName] === undefined ? undefined : expand(name || plainName, stack)
+      if (operator && (resolved === undefined || (operator === ':-' && resolved === ''))) {
+        return interpolate(fallback, stack)
+      }
+      return resolved === undefined ? match : String(resolved)
+    })
+  }
+
   for (const key in obj) {
-    const value = obj[key]
-    if (typeof value === 'string') {
-      obj[key] = value.replace(/\$\{?([A-Z_][A-Z0-9_]*)\}?/gi, (match, varName) => {
-        return obj[varName] !== undefined ? obj[varName] : match
-      })
+    if (typeof obj[key] === 'string') {
+      obj[key] = expand(key, [])
     }
   }
 }
