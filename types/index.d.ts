@@ -17,6 +17,11 @@ interface DotenvOptions {
 
 type EnvSchema = typeof envSchema
 
+type FluentSchema = {
+  isFluentSchema: boolean;
+  isFluentJSONSchema: boolean;
+}
+
 declare namespace envSchema {
   export type { JSONSchemaType }
 
@@ -25,7 +30,7 @@ declare namespace envSchema {
   }
 
   export type EnvSchemaOpt<T = EnvSchemaData> = {
-    schema?: JSONSchemaType<T> | AnySchema;
+    schema?: JSONSchemaType<T> | AnySchema | FluentSchema;
     data?: [EnvSchemaData, ...EnvSchemaData[]] | EnvSchemaData;
     env?: boolean;
     dotenv?: boolean | DotenvOptions;
