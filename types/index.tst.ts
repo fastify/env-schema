@@ -3,6 +3,7 @@ import envSchema, {
   EnvSchemaData,
   EnvSchemaOpt,
   keywords,
+  JSONSchemaType as EnvJSONSchemaType,
   envSchema as envSchemaNamed,
   default as envSchemaDefault,
 } from '.'
@@ -115,3 +116,56 @@ expect(envSchemaTypebox).type.toBe<SchemaTypebox>()
 
 expect(keywords.separator).type.toBe<KeywordDefinition>()
 expect(envSchema.keywords.separator).type.toBe<KeywordDefinition>()
+
+interface EnvDataWithSeparator {
+  PORT: number;
+  ALLOWED_HOSTS: string[];
+}
+
+const schemaWithSeparator: EnvJSONSchemaType<EnvDataWithSeparator> = {
+  type: 'object',
+  required: ['PORT', 'ALLOWED_HOSTS'],
+  properties: {
+    PORT: {
+      type: 'number',
+      default: 3000,
+    },
+    ALLOWED_HOSTS: {
+      type: 'string',
+      separator: ',',
+    },
+  },
+}
+
+const envSchemaWithSeparator = envSchema({ schema: schemaWithSeparator })
+expect(envSchemaWithSeparator).type.toBe<EnvDataWithSeparator>()
+
+const schemaWithArray: EnvJSONSchemaType<EnvDataWithSeparator> = {
+  type: 'object',
+  required: ['PORT', 'ALLOWED_HOSTS'],
+  properties: {
+    PORT: {
+      type: 'number',
+    },
+    ALLOWED_HOSTS: {
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
+  },
+}
+expect(envSchema({ schema: schemaWithArray })).type.toBe<EnvDataWithSeparator>()
+
+expect<EnvJSONSchemaType<EnvDataWithSeparator>>().type.not.toBeAssignableFrom({
+  type: 'object',
+  required: ['PORT', 'ALLOWED_HOSTS'],
+  properties: {
+    PORT: {
+      type: 'number',
+    },
+    ALLOWED_HOSTS: {
+      type: 'string',
+    },
+  },
+})
