@@ -141,7 +141,7 @@ const config = envSchema({
   schema: S.object().prop('PORT', S.number().default(3000).required()),
   data: data, // optional, default: process.env
   dotenv: true, // load .env if it is there, default: false
-  expandEnv: true, // expand environment variables like $VAR or ${VAR}, default: false
+  expandEnv: true, // expand environment variables like $VAR, ${VAR}, ${VAR:-default} or ${VAR-default} (\$ for a literal $), default: false
 })
 
 console.log(config)

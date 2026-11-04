@@ -1,5 +1,7 @@
 'use strict'
 
+/* eslint-disable no-template-curly-in-string */
+
 const { test } = require('node:test')
 const makeTest = require('./make-test')
 const { join } = require('node:path')
@@ -88,6 +90,65 @@ const tests = [
     },
     confExpected: {
       MESSAGE: 'Hello $UNDEFINED_VAR world'
+    }
+  },
+  {
+    name: 'simple object - ok - expandEnv resolves chained references whatever the key order',
+    schema: {
+      type: 'object',
+      properties: {
+        DATABASE_URL: { type: 'string' },
+        DB_HOST: { type: 'string' }
+      }
+    },
+    expandEnv: true,
+    isOk: true,
+    data: {
+      DATABASE_URL: 'postgres://$DB_HOST/app',
+      DB_HOST: '${DB_NAME}.internal',
+      DB_NAME: 'db'
+    },
+    confExpected: {
+      DATABASE_URL: 'postgres://db.internal/app',
+      DB_HOST: 'db.internal'
+    }
+  },
+  {
+    name: 'simple object - ok - expandEnv supports default values and escaped dollar signs',
+    schema: {
+      type: 'object',
+      properties: {
+        UNSET: { type: 'string' },
+        EMPTY: { type: 'string' },
+        EMPTY_DASH: { type: 'string' },
+        SET: { type: 'string' },
+        PRICE: { type: 'string' },
+        URL: { type: 'string' },
+        LOOP: { type: 'string' }
+      }
+    },
+    expandEnv: true,
+    isOk: true,
+    data: {
+      BLANK: '',
+      HOST: 'h',
+      UNSET: '${MISSING:-http://$HOST}',
+      EMPTY: '${BLANK:-fallback}',
+      EMPTY_DASH: '${BLANK-fallback}',
+      SET: '${HOST:-fallback}',
+      PRICE: '\\$5',
+      PORT: 3000,
+      URL: 'http://h:$PORT',
+      LOOP: 'a$LOOP'
+    },
+    confExpected: {
+      UNSET: 'http://h',
+      EMPTY: 'fallback',
+      EMPTY_DASH: '',
+      SET: 'h',
+      PRICE: '$5',
+      URL: 'http://h:3000',
+      LOOP: 'a$LOOP'
     }
   }
 ]
