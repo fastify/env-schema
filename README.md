@@ -269,6 +269,53 @@ const config = envSchema<Schema>({
 })
 ```
 
+A property using the [`separator`](#separator) keyword is declared with `type: 'string'`
+but holds a `string[]` once `envSchema` returns. Type it as `string[]` in the type you pass:
+
+```ts
+import { envSchema } from 'env-schema'
+
+interface Env {
+  ALLOWED_HOSTS: string[];
+}
+
+const config = envSchema<Env>({
+  schema: {
+    type: 'object',
+    required: ['ALLOWED_HOSTS'],
+    properties: {
+      ALLOWED_HOSTS: {
+        type: 'string',
+        separator: ','
+      }
+    }
+  }
+})
+
+// config.ALLOWED_HOSTS: string[]
+```
+
+With `typebox`, use `Type.Unsafe` to keep the string schema and give it the array type:
+
+```ts
+import { envSchema } from 'env-schema'
+import { Static, Type } from 'typebox'
+
+const schema = Type.Object({
+  ALLOWED_HOSTS: Type.Unsafe<string[]>({ type: 'string', separator: ',' })
+})
+
+const config = envSchema<Static<typeof schema>>({
+  schema
+})
+
+// config.ALLOWED_HOSTS: string[]
+```
+
+An empty value (`ALLOWED_HOSTS=`) becomes `[]`. If the variable is not set, is not
+`required` and has no `default`, the property is left out of `config`, so mark it
+optional (`ALLOWED_HOSTS?: string[]`) in that case.
+
 If no type is specified the `config` will have the `EnvSchemaData` type.
 
 ```ts
