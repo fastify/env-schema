@@ -316,6 +316,9 @@ An empty value (`ALLOWED_HOSTS=`) becomes `[]`. If the variable is not set, is n
 `required` and has no `default`, the property is left out of `config`, so mark it
 optional (`ALLOWED_HOSTS?: string[]`) in that case.
 
+Typing the property as `string[]` with an interface requires TypeScript 5.2 or newer.
+Older versions report `Type '"string"' is not assignable to type '"array"'`.
+
 If no type is specified the `config` will have the `EnvSchemaData` type.
 
 ```ts
