@@ -115,3 +115,30 @@ expect(envSchemaTypebox).type.toBe<SchemaTypebox>()
 
 expect(keywords.separator).type.toBe<KeywordDefinition>()
 expect(envSchema.keywords.separator).type.toBe<KeywordDefinition>()
+
+interface EnvDataWithSeparator {
+  ALLOWED_HOSTS: string[];
+}
+
+const envSchemaWithSeparator = envSchema<EnvDataWithSeparator>({
+  schema: {
+    type: 'object',
+    required: ['ALLOWED_HOSTS'],
+    properties: {
+      ALLOWED_HOSTS: {
+        type: 'string',
+        separator: ',',
+      },
+    },
+  },
+})
+expect(envSchemaWithSeparator.ALLOWED_HOSTS).type.toBe<string[]>()
+
+const schemaTypeboxWithSeparator = Type.Object({
+  ALLOWED_HOSTS: Type.Unsafe<string[]>({ type: 'string', separator: ',' }),
+})
+
+const envSchemaTypeboxWithSeparator = envSchema<Static<typeof schemaTypeboxWithSeparator>>({
+  schema: schemaTypeboxWithSeparator,
+})
+expect(envSchemaTypeboxWithSeparator.ALLOWED_HOSTS).type.toBe<string[]>()
